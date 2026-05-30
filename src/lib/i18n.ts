@@ -42,15 +42,27 @@ const labels: Record<AppLang, UiLabels> = {
 	}
 };
 
+function normalizeBasePath(basePath: string): string {
+	if (!basePath || basePath === '/') return '';
+	return basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
+}
+
+export function withBasePath(path: string): string {
+	const basePath = normalizeBasePath(import.meta.env.BASE_URL);
+	if (!basePath) return path;
+	if (path === '/') return `${basePath}/`;
+	return `${basePath}${path}`;
+}
+
 export function getUiLabels(lang: AppLang): UiLabels {
 	return labels[lang];
 }
 
 export function getModePath(lang: AppLang, mode: AppMode): string {
 	if (mode === 'stories') {
-		return lang === 'en' ? '/' : '/ru';
+		return withBasePath(lang === 'en' ? '/' : '/ru');
 	}
-	return lang === 'en' ? '/text' : '/text/ru';
+	return withBasePath(lang === 'en' ? '/text' : '/text/ru');
 }
 
 export function getAlternatePaths(_lang: AppLang, mode: AppMode): Record<AppLang, string> {

@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import { withBasePath } from '@/lib/i18n';
 
 interface Props {
 	lang: 'en' | 'ru';
@@ -20,7 +21,9 @@ const siteUrl = Astro.site ?? Astro.url;
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const alternateEn = new URL(alternatePaths.en, siteUrl).toString();
 const alternateRu = new URL(alternatePaths.ru, siteUrl).toString();
-const socialImageUrl = new URL('/favicon.svg', siteUrl).toString();
+const faviconSvgUrl = withBasePath('/favicon.svg');
+const faviconIcoUrl = withBasePath('/favicon.ico');
+const socialImageUrl = new URL(faviconSvgUrl, siteUrl).toString();
 const locale = lang === 'ru' ? 'ru_RU' : 'en_US';
 const localeAlternate = lang === 'ru' ? 'en_US' : 'ru_RU';
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
@@ -81,8 +84,8 @@ const structuredData = personName
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href={faviconSvgUrl} />
+		<link rel="icon" href={faviconIcoUrl} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
