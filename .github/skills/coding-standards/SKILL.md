@@ -7,6 +7,10 @@ description: Universal coding standards, best practices, and patterns for TypeSc
 
 Universal coding standards applicable across all projects.
 
+## Tooling Constraint
+
+- For Playwright MCP usage, use Firefox browser only. Do not run Playwright MCP actions in Chromium or WebKit.
+
 ## When to Activate
 
 - Starting a new project or module

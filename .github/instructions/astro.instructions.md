@@ -204,3 +204,4 @@ const blog = defineCollection({
 
 - The complete documentation includes all content from the official documentation
 - The content is automatically generated from the same source as the official documentation
+- For Playwright MCP usage, use Firefox browser only. Do not run Playwright MCP actions in Chromium or WebKit.

@@ -5,6 +5,10 @@ description: Create distinctive, production-grade frontend interfaces with high 
 
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
 
+## Tooling Constraint
+
+- For Playwright MCP usage, use Firefox browser only. Do not run Playwright MCP actions in Chromium or WebKit.
+
 The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
 
 ## Design Thinking
