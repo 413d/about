@@ -1,27 +1,115 @@
 ---
 import '@/styles/global.css';
+
+interface Props {
+	lang: 'en' | 'ru';
+	title: string;
+	description: string;
+	canonicalPath: string;
+	alternatePaths: {
+		en: string;
+		ru: string;
+	};
+	mode?: 'stories' | 'text';
+}
+
+const { lang, title, description, canonicalPath, alternatePaths, mode = 'stories' } = Astro.props;
+const cloudflareBeaconToken = import.meta.env.PUBLIC_CLOUDFLARE_BEACON_TOKEN?.trim();
+const cloudflareBeaconSrc = 'https://static.cloudflareinsights.com/beacon.min.js';
+const siteUrl = Astro.site ?? Astro.url;
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
+const alternateEn = new URL(alternatePaths.en, siteUrl).toString();
+const alternateRu = new URL(alternatePaths.ru, siteUrl).toString();
+const socialImageUrl = new URL('/favicon.svg', siteUrl).toString();
+const locale = lang === 'ru' ? 'ru_RU' : 'en_US';
+const localeAlternate = lang === 'ru' ? 'en_US' : 'ru_RU';
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
+const personName = import.meta.env.PUBLIC_PERSON_NAME;
+const profileUrlsRaw = import.meta.env.PUBLIC_PROFILE_URLS;
+const profileUrls = profileUrlsRaw
+	? profileUrlsRaw
+		.split(',')
+		.map((value: string) => value.trim())
+		.filter((value: string) => value.length > 0)
+	: [];
+const siteName = import.meta.env.PUBLIC_SITE_NAME ?? (lang === 'ru' ? 'Портфолио Senior Fullstack разработчика' : 'Senior Fullstack Developer Portfolio');
+
+let analyticsScriptSrc: string | null = null;
+
+if (cloudflareBeaconToken && cloudflareBeaconToken.length > 0) {
+	try {
+		const parsedSrc = new URL(cloudflareBeaconSrc);
+		if (parsedSrc.hostname === 'static.cloudflareinsights.com') {
+			analyticsScriptSrc = parsedSrc.toString();
+		}
+	} catch {
+		analyticsScriptSrc = null;
+	}
+}
+
+const structuredData = personName
+	? {
+		'@context': 'https://schema.org',
+		'@type': 'Person',
+		name: personName,
+		jobTitle: lang === 'ru' ? 'Senior Fullstack разработчик' : 'Senior Fullstack Developer',
+		description,
+		url: canonicalUrl,
+		inLanguage: lang,
+		knowsAbout: ['TypeScript', 'JavaScript', 'React', 'Vue', 'Node.js', 'NestJS', 'Full Stack Development'],
+			sameAs: profileUrls.length > 0 ? profileUrls : undefined,
+		contactPoint: contactEmail
+			? {
+				'@type': 'ContactPoint',
+				email: contactEmail,
+				contactType: mode === 'stories' ? 'hiring inquiries' : 'project inquiries'
+			}
+			: undefined
+	}
+	: {
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: siteName,
+		description,
+		url: canonicalUrl,
+		inLanguage: lang
+	};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang} data-mode={mode}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="en" href={alternateEn} />
+		<link rel="alternate" hreflang="ru" href={alternateRu} />
+		<link rel="alternate" hreflang="x-default" href={alternateEn} />
+		<meta name="robots" content="index,follow,max-image-preview:large" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content={locale} />
+		<meta property="og:locale:alternate" content={localeAlternate} />
+		<meta property="og:image" content={socialImageUrl} />
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImageUrl} />
+
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+		{analyticsScriptSrc && <script is:inline defer src={analyticsScriptSrc} data-cf-beacon={`{"token":"${cloudflareBeaconToken}"}`}></script>}
 	</head>
-	<body>
+	<body class="m-0 w-full min-h-screen text-slate-200 antialiased [font-family:Aptos,Manrope,IBM_Plex_Sans,Segoe_UI,sans-serif]">
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

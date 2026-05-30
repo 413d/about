@@ -1,0 +1,36 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import StoriesView from '@/components/StoriesView.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import TextModeLink from '@/components/TextModeLink.astro';
+import type { AppLang } from '@/lib/content';
+import { getStoriesByLang } from '@/lib/content';
+import { getAlternatePaths, getModePath, getPageMeta, getUiLabels } from '@/lib/i18n';
+
+interface Props {
+	lang: AppLang;
+}
+
+const { lang } = Astro.props;
+const stories = await getStoriesByLang(lang);
+const meta = getPageMeta(lang, 'stories');
+const labels = getUiLabels(lang);
+const alternates = getAlternatePaths(lang, 'stories');
+const homeHref = getModePath(lang, 'stories');
+const homeLabel = lang === 'ru' ? 'На главную' : 'Go to home';
+---
+
+<Layout lang={lang} title={meta.title} description={meta.description} canonicalPath={getModePath(lang, 'stories')} alternatePaths={alternates} mode="stories">
+	<main class="story-shell mx-auto min-h-screen w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+		<h1 class="sr-only">{meta.title}</h1>
+		<header class="mb-5 flex items-center justify-between gap-4">
+			<div class="flex items-center gap-3">
+				<a href={homeHref} aria-label={homeLabel} class="grid h-9 w-9 place-items-center rounded-full border border-amber-100/40 bg-amber-100/10 text-[11px] font-bold leading-none tracking-[0.08em] text-amber-50 transition hover:border-amber-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-100">LX</a>
+				<LanguageSwitcher lang={lang} currentPathEn={alternates.en} currentPathRu={alternates.ru} label={labels.jumpToLanguage} />
+			</div>
+			<TextModeLink href={getModePath(lang, 'text')} label={labels.viewTextVersion} qa="open-text-mode" />
+		</header>
+
+		<StoriesView lang={lang} stories={stories} uiLabels={labels} />
+	</main>
+</Layout>

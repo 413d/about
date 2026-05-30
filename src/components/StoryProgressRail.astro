@@ -1,0 +1,15 @@
+---
+interface Props {
+	count: number;
+}
+
+const { count } = Astro.props;
+---
+
+<div class="grid w-full gap-1" style={`grid-template-columns: repeat(${count}, minmax(0, 1fr));`}>
+	{Array.from({ length: count }).map((_, index) => (
+		<div class="h-1 overflow-hidden rounded-full bg-slate-700/55 ring-1 ring-white/5" data-story-progress-segment data-story-segment-index={index}>
+			<div class="h-full w-0 rounded-full bg-gradient-to-r from-amber-200 via-sky-200 to-slate-50" data-story-progress-fill data-story-segment-fill-index={index}></div>
+		</div>
+	))}
+</div>

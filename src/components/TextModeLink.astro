@@ -1,0 +1,13 @@
+---
+interface Props {
+	href: string;
+	label: string;
+	qa?: string;
+}
+
+const { href, label, qa } = Astro.props;
+---
+
+<a href={href} data-qa={qa} class="rounded-full border border-slate-500/65 bg-slate-950/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-slate-200 transition hover:border-sky-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200">
+	{label}
+</a>

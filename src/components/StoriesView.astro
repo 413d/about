@@ -1,0 +1,71 @@
+---
+import type { NormalizedStory } from '@/lib/content';
+import type { UiLabels } from '@/lib/i18n';
+import StoryFrame from '@/components/StoryFrame.astro';
+import StoryProgressRail from '@/components/StoryProgressRail.astro';
+
+interface Props {
+	lang: 'en' | 'ru';
+	stories: NormalizedStory[];
+	uiLabels: UiLabels;
+}
+
+const { lang, stories, uiLabels } = Astro.props;
+---
+
+<section
+	data-story-root
+	data-qa="story-root"
+	data-story-count={stories.length}
+	data-story-lang={lang}
+	data-story-initial-index="0"
+	data-story-counter-label={uiLabels.storyCounter}
+	tabindex="0"
+	role="region"
+	aria-label={uiLabels.storyExperienceLabel}
+	class="mx-auto flex w-full max-w-md flex-col gap-4 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-sky-200"
+>
+	<StoryProgressRail count={stories.length} />
+
+	<div class="story-stage relative min-h-[500px] rounded-[2rem] shadow-[0_28px_90px_rgba(0,0,0,0.34)]" data-story-stage>
+		{stories.map((story, idx) => (
+			<StoryFrame story={story} total={stories.length} labelCounter={uiLabels.storyCounter} isActive={idx === 0} />
+		))}
+
+		<div class="pointer-events-none absolute inset-x-0 top-0 z-10 grid h-2/3 grid-cols-[1fr_1fr_1fr] rounded-3xl" aria-hidden="true">
+			<div class="pointer-events-auto h-full w-full" data-story-hitzone="prev"></div>
+			<div class="pointer-events-auto h-full w-full" data-story-hitzone="pause"></div>
+			<div class="pointer-events-auto h-full w-full" data-story-hitzone="next"></div>
+		</div>
+	</div>
+
+	<div class="flex items-center justify-between gap-3 text-xs text-slate-400">
+		<p class="font-medium text-slate-300" data-story-counter data-qa="story-counter">{uiLabels.storyCounter} 1 / {stories.length}</p>
+		<div class="flex gap-2">
+			<button type="button" data-story-nav="prev" data-story-control="button" data-qa="story-prev" class="rounded-full border border-slate-500/60 bg-slate-950/25 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300 transition hover:border-sky-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200">{uiLabels.prev}</button>
+			<button type="button" data-story-nav="pause" data-story-control="button" data-qa="story-pause" class="rounded-full border border-amber-200/45 bg-amber-200/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-100 transition hover:border-amber-100 hover:bg-amber-200/18 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-100" data-story-pause-label={uiLabels.pause} data-story-resume-label={uiLabels.resume}>{uiLabels.pause}</button>
+			<button type="button" data-story-nav="next" data-story-control="button" data-qa="story-next" class="rounded-full border border-slate-500/60 bg-slate-950/25 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300 transition hover:border-sky-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200">{uiLabels.next}</button>
+		</div>
+	</div>
+
+	<p class="sr-only" data-story-live-region aria-live="polite"></p>
+
+	<noscript>
+		<p class="rounded-xl border border-slate-600/70 bg-slate-950/60 px-4 py-3 text-sm text-slate-300">
+			{uiLabels.noJsHint}
+		</p>
+	</noscript>
+</section>
+
+<script>
+	import { mountStoryController } from '@/scripts/story-controller';
+
+	const roots = document.querySelectorAll('[data-story-root]');
+	const cleanups = Array.from(roots, (root) => mountStoryController(root));
+
+	window.addEventListener('pagehide', () => {
+		cleanups.forEach((cleanup) => {
+			cleanup();
+		});
+	}, { once: true });
+</script>

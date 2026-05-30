@@ -1,0 +1,20 @@
+---
+interface Props {
+  lines: string[];
+  highlightItems?: string[];
+}
+
+const { lines, highlightItems = [] } = Astro.props;
+---
+
+<div class="mt-5 space-y-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+  {lines.map((line) => <p>{line}</p>)}
+</div>
+
+{highlightItems.length > 0 && (
+  <ul class="mt-6 grid grid-cols-1 gap-2 text-sm text-slate-200 sm:grid-cols-2">
+    {highlightItems.map((item) => (
+      <li class="rounded-2xl border border-slate-500/35 bg-slate-950/35 px-3 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">{item}</li>
+    ))}
+  </ul>
+)}

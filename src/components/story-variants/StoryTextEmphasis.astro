@@ -1,0 +1,13 @@
+---
+interface Props {
+  lines: string[];
+}
+
+const { lines } = Astro.props;
+---
+
+<div class="mt-6 space-y-3">
+  {lines.map((line) => (
+    <p class="rounded-2xl border border-sky-200/15 bg-slate-950/35 px-4 py-3 text-sm leading-relaxed text-slate-200 shadow-[inset_3px_0_0_rgba(125,211,252,0.38)] sm:text-base">{line}</p>
+  ))}
+</div>

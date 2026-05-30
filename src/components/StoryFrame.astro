@@ -1,0 +1,28 @@
+---
+import type { NormalizedStory } from '@/lib/content';
+import StoryContent from '@/components/StoryContent.astro';
+
+interface Props {
+	story: NormalizedStory;
+	total: number;
+	labelCounter: string;
+	isActive: boolean;
+}
+
+const { story, total, labelCounter, isActive } = Astro.props;
+---
+
+<section
+	data-story-item
+	data-story-index={story.index}
+	data-story-id={story.id}
+	data-story-duration={story.durationMs}
+	data-story-terminal={story.isTerminal ? 'true' : 'false'}
+	data-active={isActive ? 'true' : 'false'}
+	aria-hidden={isActive ? 'false' : 'true'}
+	inert={!isActive}
+	aria-label={`${labelCounter} ${story.index + 1} / ${total}: ${story.title}`}
+	class="story-frame relative mb-4 transition-opacity duration-300 last:mb-0"
+>
+	<StoryContent story={story} />
+</section>

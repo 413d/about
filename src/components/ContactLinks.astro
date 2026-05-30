@@ -1,0 +1,91 @@
+---
+type ContactIcon = 'email' | 'x' | 'github';
+type ContactLink = {
+	href: string;
+	label: string;
+	icon: ContactIcon;
+};
+
+interface Props {
+	variant?: 'icons' | 'inline';
+	qaPrefix?: string;
+}
+
+const { variant = 'icons', qaPrefix = 'contact' } = Astro.props;
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
+const contactXUrl = import.meta.env.PUBLIC_CONTACT_X_URL;
+const contactGithubUrl = import.meta.env.PUBLIC_CONTACT_GITHUB_URL;
+
+const links = [
+	contactEmail
+		? {
+			href: `mailto:${contactEmail}`,
+			label: 'Email',
+			icon: 'email'
+		}
+		: undefined,
+	contactXUrl
+		? {
+			href: contactXUrl,
+			label: 'X',
+			icon: 'x'
+		}
+		: undefined,
+	contactGithubUrl
+		? {
+			href: contactGithubUrl,
+			label: 'GitHub',
+			icon: 'github'
+		}
+		: undefined
+].filter((item): item is ContactLink => item !== undefined);
+---
+
+{links.length > 0 && variant === 'icons' && (
+	<div class="relative z-20 flex items-center gap-4" data-contact-links={qaPrefix}>
+		{links.map((link) => (
+			<a
+				href={link.href}
+				data-story-cta
+				data-contact-link={link.icon}
+				aria-label={link.label}
+				target={link.icon === 'email' ? undefined : '_blank'}
+				rel={link.icon === 'email' ? undefined : 'noreferrer noopener'}
+				class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-amber-200/35 bg-amber-200/10 text-amber-50 shadow-[0_12px_34px_rgba(0,0,0,0.28)] transition hover:border-amber-100 hover:bg-amber-200/18 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-100"
+			>
+				{link.icon === 'email' && (
+					<svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" stroke-width="1.75">
+						<path d="M3.75 7.5h16.5v9a1.5 1.5 0 0 1-1.5 1.5h-13.5a1.5 1.5 0 0 1-1.5-1.5v-9Z"></path>
+						<path d="m4.5 8.25 7.5 5.25 7.5-5.25"></path>
+					</svg>
+				)}
+				{link.icon === 'x' && (
+					<svg aria-hidden="true" viewBox="0 0 24 24" class="h-4.5 w-4.5 fill-current">
+						<path d="M18.244 2H21l-6.02 6.89L22 22h-5.514l-4.327-6.297L6.65 22H3.89l6.44-7.364L2 2h5.654l3.912 5.7L18.244 2Zm-.968 18h1.527L6.83 3.895H5.19L17.276 20Z"></path>
+					</svg>
+				)}
+				{link.icon === 'github' && (
+					<svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 fill-current">
+						<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.729.082-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.42-1.305.762-1.605-2.665-.3-5.467-1.335-5.467-5.93 0-1.31.465-2.38 1.236-3.22-.123-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 0 1 3.003-.404c1.018.005 2.044.138 3.003.404 2.29-1.552 3.297-1.23 3.297-1.23.655 1.653.242 2.873.12 3.176.77.84 1.235 1.91 1.235 3.22 0 4.607-2.807 5.625-5.48 5.92.431.372.815 1.102.815 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12Z"></path>
+					</svg>
+				)}
+			</a>
+		))}
+	</div>
+)}
+
+{links.length > 0 && variant === 'inline' && (
+	<nav aria-label="Contact links" class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-300" data-contact-links={qaPrefix}>
+		{links.map((link) => (
+			<a
+				href={link.href}
+				data-contact-link={link.icon}
+				target={link.icon === 'email' ? undefined : '_blank'}
+				rel={link.icon === 'email' ? undefined : 'noreferrer noopener'}
+				class="font-medium text-slate-300 underline decoration-sky-200/30 underline-offset-4 transition hover:text-white hover:decoration-amber-100/70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-200"
+			>
+				{link.label}
+			</a>
+		))}
+	</nav>
+)}

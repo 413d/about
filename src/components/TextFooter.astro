@@ -1,0 +1,19 @@
+---
+import ContactLinks from '@/components/ContactLinks.astro';
+
+interface Props {
+	lang: 'en' | 'ru';
+}
+
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+const owner = import.meta.env.PUBLIC_PERSON_NAME ?? 'Alex';
+const copyright = lang === 'ru'
+	? `© ${year} ${owner}. Все права защищены.`
+	: `© ${year} ${owner}. All rights reserved.`;
+---
+
+<footer class="relative mx-auto flex w-full max-w-3xl flex-col gap-3 px-6 pb-10 pt-2 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+	<p>{copyright}</p>
+	<ContactLinks variant="inline" qaPrefix="text-footer" />
+</footer>

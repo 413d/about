@@ -1,0 +1,17 @@
+---
+import ContactLinks from '@/components/ContactLinks.astro';
+
+interface Props {
+  lines: string[];
+}
+
+const { lines } = Astro.props;
+---
+
+<div class="mt-5 space-y-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+  {lines.map((line) => <p>{line}</p>)}
+</div>
+
+<div class="mt-8">
+  <ContactLinks variant="icons" qaPrefix="story-cta" />
+</div>
