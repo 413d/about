@@ -45,7 +45,7 @@ jobs:
           PUBLIC_CONTACT_GITHUB_URL: ${{ vars.PUBLIC_CONTACT_GITHUB_URL }}
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
 
