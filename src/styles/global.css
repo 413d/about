@@ -46,9 +46,14 @@ body {
 	pointer-events: none;
 }
 
+html {
+	overflow-x: hidden;
+}
+
 [data-story-root][data-enhanced='true'] [data-story-stage] {
-	height: 74dvh;
-	min-height: 500px;
+	height: min(74dvh, calc(100dvh - 210px));
+	min-height: min(320px, calc(100dvh - 210px));
+	overflow-y: auto;
 }
 
 [data-story-root][data-enhanced='true'] .story-frame {
