@@ -13,35 +13,28 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  build-test-deploy:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version-file: package.json
           cache: npm
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v6
-        with:
-          enablement: true
-          token: ${{ secrets.PAGES_TOKEN || github.token }}
-
       - name: Install dependencies
         run: npm ci
 
+      - name: Type check
+        run: npx astro check
 
       - name: Build for GitHub Pages
         run: npm run build
@@ -51,12 +44,93 @@ jobs:
           PUBLIC_CONTACT_X_URL: ${{ vars.PUBLIC_CONTACT_X_URL }}
           PUBLIC_CONTACT_GITHUB_URL: ${{ vars.PUBLIC_CONTACT_GITHUB_URL }}
 
-
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
+      - name: Upload build artifact for QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: ./dist
+          retention-days: 1
+
+  qa:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Firefox for Playwright
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps firefox
+
+      - name: Install Playwright dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps firefox
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: ./dist
+
+      - name: Start preview server
+        run: |
+          nohup npm run preview -- --host 127.0.0.1 --port 4173 > preview.log 2>&1 &
+          echo $! > preview.pid
+
+      - name: Wait for preview
+        run: |
+          timeout 30 bash -c 'until curl -fsS http://127.0.0.1:4173/ > /dev/null 2>&1; do sleep 1; done' || {
+            echo "Preview server did not start within 30 seconds"
+            cat preview.log || true
+            exit 1
+          }
+
+      - name: Firefox regression QA
+        run: npm run qa:firefox:artifacts
+
+      - name: Upload QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-qa-${{ github.run_id }}
+          path: |
+            artifacts/firefox-qa
+            preview.log
+          if-no-files-found: warn
+          retention-days: 7
+
+  deploy:
+    needs: [build, qa]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
