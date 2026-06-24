@@ -14,14 +14,14 @@
     "qa:firefox:artifacts": "QA_ARTIFACTS_DIR=artifacts/firefox-qa node scripts/firefox-ux-qa.mjs"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.2.2",
+    "@tailwindcss/vite": "^4.3.1",
     "astro": "^7.0.2",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@types/node": "^25.9.1",
-    "playwright": "^1.60.0",
+    "playwright": "^1.61.1",
     "typescript": "^5.9.3"
   }
 }
