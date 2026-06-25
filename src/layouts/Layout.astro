@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import { withBasePath } from '@/lib/i18n';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	lang: 'en' | 'ru';
@@ -109,6 +110,7 @@ const structuredData = personName
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={socialImageUrl} />
 
+		<ClientRouter />
 		<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
 		{analyticsScriptSrc && <script is:inline defer src={analyticsScriptSrc} data-cf-beacon={`{"token":"${cloudflareBeaconToken}"}`}></script>}
 	</head>

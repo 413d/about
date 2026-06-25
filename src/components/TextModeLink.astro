@@ -3,11 +3,26 @@ interface Props {
 	href: string;
 	label: string;
 	qa?: string;
+	targetMode: 'text' | 'stories';
 }
 
-const { href, label, qa } = Astro.props;
+const { href, label, qa, targetMode } = Astro.props;
 ---
 
-<a href={href} data-qa={qa} class="rounded-full border border-slate-500/65 bg-slate-950/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-slate-200 transition hover:border-sky-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200">
-	{label}
+<a href={href} data-qa={qa} title={label} aria-label={label} transition:name="mode-toggle" class="grid h-9 w-9 place-items-center rounded-full border border-slate-500/65 bg-slate-950/20 text-slate-300 transition hover:border-sky-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200">
+	{targetMode === 'text' ? (
+		<svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4 fill-none stroke-current" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+			<path d="M14 2v6h6" />
+			<path d="M8 13h8" />
+			<path d="M8 17h8" />
+		</svg>
+	) : (
+		<svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4 fill-none stroke-current" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+			<rect x="3" y="3" width="7" height="7" rx="1" />
+			<rect x="14" y="3" width="7" height="7" rx="1" />
+			<rect x="3" y="14" width="7" height="7" rx="1" />
+			<rect x="14" y="14" width="7" height="7" rx="1" />
+		</svg>
+	)}
 </a>

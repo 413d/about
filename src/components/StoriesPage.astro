@@ -28,7 +28,7 @@ const homeLabel = lang === 'ru' ? 'На главную' : 'Go to home';
 				<a href={homeHref} aria-label={homeLabel} class="grid h-9 w-9 place-items-center rounded-full border border-amber-100/40 bg-amber-100/10 text-[11px] font-bold leading-none tracking-[0.08em] text-amber-50 transition hover:border-amber-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-100">LX</a>
 				<LanguageSwitcher lang={lang} currentPathEn={alternates.en} currentPathRu={alternates.ru} label={labels.jumpToLanguage} />
 			</div>
-			<TextModeLink href={getModePath(lang, 'text')} label={labels.viewTextVersion} qa="open-text-mode" />
+			<TextModeLink href={getModePath(lang, 'text')} label={labels.viewTextVersion} qa="open-text-mode" targetMode="text" />
 		</header>
 
 		<StoriesView lang={lang} stories={stories} uiLabels={labels} />
