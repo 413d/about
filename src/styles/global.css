@@ -53,7 +53,7 @@ html {
 [data-story-root][data-enhanced='true'] [data-story-stage] {
 	height: min(74dvh, calc(100dvh - 210px));
 	min-height: min(320px, calc(100dvh - 210px));
-	overflow-y: auto;
+	overflow: hidden;
 }
 
 [data-story-root][data-enhanced='true'] .story-frame {

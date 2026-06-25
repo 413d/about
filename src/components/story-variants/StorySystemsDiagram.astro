@@ -7,20 +7,20 @@ interface Props {
 const { lines, stackItems = [] } = Astro.props;
 ---
 
-<div class="mt-5 space-y-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+<div class="mt-[clamp(0.75rem,2.5vw,1.25rem)] space-y-[clamp(0.5rem,2vw,0.75rem)] text-[clamp(0.75rem,2.5vw,0.875rem)] leading-relaxed text-slate-300 sm:text-base">
   {lines.map((line) => <p>{line}</p>)}
 </div>
 
-<div class="mt-6 grid grid-cols-3 gap-2 text-center text-[11px] font-bold uppercase tracking-[0.12em] text-slate-200">
-  <div class="rounded-2xl border border-sky-200/20 bg-sky-200/[0.07] px-3 py-3">API</div>
-  <div class="rounded-2xl border border-amber-200/25 bg-amber-200/[0.08] px-3 py-3">Queue</div>
-  <div class="rounded-2xl border border-sky-200/20 bg-sky-200/[0.07] px-3 py-3">Data</div>
+<div class="mt-[clamp(0.75rem,3vw,1.5rem)] grid grid-cols-3 gap-[clamp(0.25rem,1.25vw,0.5rem)] text-center text-[clamp(0.5rem,1.75vw,0.6875rem)] font-bold uppercase tracking-[0.12em] text-slate-200">
+  <div class="rounded-2xl border border-sky-200/20 bg-sky-200/[0.07] px-[clamp(0.5rem,2vw,0.75rem)] py-[clamp(0.5rem,2vw,0.75rem)]">API</div>
+  <div class="rounded-2xl border border-amber-200/25 bg-amber-200/[0.08] px-[clamp(0.5rem,2vw,0.75rem)] py-[clamp(0.5rem,2vw,0.75rem)]">Queue</div>
+  <div class="rounded-2xl border border-sky-200/20 bg-sky-200/[0.07] px-[clamp(0.5rem,2vw,0.75rem)] py-[clamp(0.5rem,2vw,0.75rem)]">Data</div>
 </div>
 
 {stackItems.length > 0 && (
-  <ul class="mt-4 grid grid-cols-2 gap-2 text-xs text-slate-200 sm:grid-cols-3">
+  <ul class="mt-[clamp(0.5rem,2vw,1rem)] grid grid-cols-2 gap-[clamp(0.25rem,1.25vw,0.5rem)] text-[clamp(0.625rem,2vw,0.75rem)] text-slate-200 sm:grid-cols-3">
     {stackItems.map((item) => (
-      <li class="rounded-full border border-slate-500/55 bg-slate-950/25 px-3 py-1.5 text-center">{item}</li>
+      <li class="rounded-full border border-slate-500/55 bg-slate-950/25 px-[clamp(0.5rem,2vw,0.75rem)] py-[clamp(0.25rem,1.25vw,0.375rem)] text-center">{item}</li>
     ))}
   </ul>
 )}

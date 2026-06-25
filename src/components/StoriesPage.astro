@@ -21,7 +21,7 @@ const homeLabel = lang === 'ru' ? 'На главную' : 'Go to home';
 ---
 
 <Layout lang={lang} title={meta.title} description={meta.description} canonicalPath={getModePath(lang, 'stories')} alternatePaths={alternates} mode="stories">
-	<main class="story-shell mx-auto min-h-screen w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+	<main class="story-shell mx-auto h-[100dvh] w-full max-w-6xl overflow-hidden px-4 py-6 sm:px-6 sm:py-8">
 		<h1 class="sr-only">{meta.title}</h1>
 		<header class="mb-5 flex items-center justify-between gap-4">
 			<div class="flex items-center gap-3">

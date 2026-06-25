@@ -7,14 +7,14 @@ interface Props {
 const { lines, highlightItems = [] } = Astro.props;
 ---
 
-<div class="mt-5 space-y-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+<div class="mt-[clamp(0.75rem,2.5vw,1.25rem)] space-y-[clamp(0.5rem,2vw,0.75rem)] text-[clamp(0.75rem,2.5vw,0.875rem)] leading-relaxed text-slate-300 sm:text-base">
   {lines.map((line) => <p>{line}</p>)}
 </div>
 
 {highlightItems.length > 0 && (
-  <ul class="mt-6 space-y-2 text-sm text-slate-200">
+  <ul class="mt-[clamp(0.75rem,3vw,1.5rem)] space-y-[clamp(0.25rem,1.25vw,0.5rem)] text-[clamp(0.75rem,2.5vw,0.875rem)] text-slate-200">
     {highlightItems.map((item) => (
-      <li class="rounded-2xl border border-amber-200/18 bg-amber-200/[0.055] px-3 py-2 shadow-[inset_3px_0_0_rgba(231,184,103,0.34)]">{item}</li>
+      <li class="rounded-2xl border border-amber-200/18 bg-amber-200/[0.055] px-[clamp(0.5rem,2vw,0.75rem)] py-[clamp(0.375rem,1.5vw,0.5rem)] shadow-[inset_3px_0_0_rgba(231,184,103,0.34)]">{item}</li>
     ))}
   </ul>
 )}
