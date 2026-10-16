@@ -1,7 +1,7 @@
 ---
 import '@/styles/global.css';
 import { withBasePath } from '@/lib/i18n';
-import { ClientRouter } from 'astro:transitions';
+import { ClientRouter, navigate } from 'astro:transitions';
 
 interface Props {
 	lang: 'en' | 'ru';
