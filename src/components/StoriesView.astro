@@ -60,12 +60,17 @@ const { lang, stories, uiLabels } = Astro.props;
 <script>
 	import { mountStoryController } from '@/scripts/story-controller';
 
-	const roots = document.querySelectorAll('[data-story-root]');
-	const cleanups = Array.from(roots, (root) => mountStoryController(root));
+	function init() {
+		const roots = document.querySelectorAll('[data-story-root]');
+		const cleanups = Array.from(roots, (root) => mountStoryController(root));
 
-	window.addEventListener('pagehide', () => {
-		cleanups.forEach((cleanup) => {
-			cleanup();
-		});
-	}, { once: true });
+		document.addEventListener('astro:before-swap', () => {
+			cleanups.forEach((cleanup) => {
+				cleanup();
+			});
+		}, { once: true });
+	}
+
+	init();
+	document.addEventListener('astro:page-load', init);
 </script>
