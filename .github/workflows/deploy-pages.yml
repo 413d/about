@@ -36,6 +36,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check public env vars
+        run: |
+          for v in PUBLIC_CLOUDFLARE_BEACON_TOKEN PUBLIC_CONTACT_EMAIL PUBLIC_CONTACT_X_URL PUBLIC_CONTACT_GITHUB_URL; do
+            if [ -n "${!v}" ]; then
+              echo "$v: set"
+            else
+              echo "$v: MISSING"
+            fi
+          done
+        env:
+          PUBLIC_CLOUDFLARE_BEACON_TOKEN: ${{ vars.PUBLIC_CLOUDFLARE_BEACON_TOKEN }}
+          PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
+          PUBLIC_CONTACT_X_URL: ${{ vars.PUBLIC_CONTACT_X_URL }}
+          PUBLIC_CONTACT_GITHUB_URL: ${{ vars.PUBLIC_CONTACT_GITHUB_URL }}
+
       - name: Build
         run: npm run build
         env:
@@ -43,6 +58,9 @@ jobs:
           PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
           PUBLIC_CONTACT_X_URL: ${{ vars.PUBLIC_CONTACT_X_URL }}
           PUBLIC_CONTACT_GITHUB_URL: ${{ vars.PUBLIC_CONTACT_GITHUB_URL }}
+
+      - name: Verify build output
+        run: test -f dist/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
