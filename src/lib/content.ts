@@ -22,10 +22,6 @@ export interface NormalizedStory {
 	accent?: string;
 	stackItems?: string[];
 	highlightItems?: string[];
-	cta?: {
-		label: string;
-		href: string;
-	};
 	isTerminal: boolean;
 }
 
@@ -54,14 +50,6 @@ function toDurationMs(duration: number): number {
 	return duration;
 }
 
-function resolveContactHref(href: string | undefined): string | undefined {
-	if (!href) return undefined;
-	if (!href.startsWith('mailto:')) return href;
-	const configuredEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
-	if (!configuredEmail) return href;
-	return `mailto:${configuredEmail}`;
-}
-
 export async function getStoriesByLang(lang: AppLang): Promise<NormalizedStory[]> {
 	const collection = lang === 'en' ? 'storiesEn' : 'storiesRu';
 	const entries = await getCollection(collection, ({ data }) => data.lang === lang);
@@ -69,8 +57,6 @@ export async function getStoriesByLang(lang: AppLang): Promise<NormalizedStory[]
 
 	return sorted.map((entry, index) => {
 		const data = entry.data;
-		const resolvedHref = resolveContactHref(data.ctaHref);
-		const cta = data.ctaLabel && resolvedHref ? { label: data.ctaLabel, href: resolvedHref } : undefined;
 
 		return {
 			id: data.id,
@@ -86,7 +72,6 @@ export async function getStoriesByLang(lang: AppLang): Promise<NormalizedStory[]
 			accent: data.accent,
 			stackItems: data.stackItems,
 			highlightItems: data.highlightItems,
-			cta,
 			isTerminal: index === sorted.length - 1 || data.visualVariant === 'cta-block'
 		};
 	});

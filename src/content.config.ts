@@ -31,9 +31,7 @@ const storySchema = z.object({
 		analyticsKey: z.string(),
 		accent: z.string().optional(),
 		stackItems: z.array(z.string()).optional(),
-		highlightItems: z.array(z.string()).optional(),
-		ctaLabel: z.string().optional(),
-		ctaHref: z.string().optional()
+		highlightItems: z.array(z.string()).optional()
 });
 
 const textSchema = z.object({

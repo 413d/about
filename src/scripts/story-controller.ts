@@ -5,6 +5,7 @@ interface StoryElements {
 	counter?: HTMLElement;
 	liveRegion?: HTMLElement;
 	pauseButtons: HTMLButtonElement[];
+	nextButtons: HTMLButtonElement[];
 	navButtons: HTMLElement[];
 	hitZones: HTMLElement[];
 }
@@ -87,13 +88,12 @@ function activateIndex(elements: StoryElements, state: StoryState, index: number
 		}
 	});
 
+	const activeItem = elements.items[bounded];
 	elements.fills.forEach((fill, idx) => {
 		if (idx < bounded) setFillWidth(fill, 100);
 		if (idx > bounded) setFillWidth(fill, 0);
-		if (idx === bounded) setFillWidth(fill, 0);
+		if (idx === bounded) setFillWidth(fill, isTerminal(activeItem) ? 100 : 0);
 	});
-
-	const activeItem = elements.items[bounded];
 	(elements.root as HTMLElement).dataset.terminalActive = isTerminal(activeItem) ? 'true' : 'false';
 	const counterText = `${state.counterLabel} ${bounded + 1} / ${state.storyCount}`;
 	if (elements.counter) {
@@ -108,16 +108,30 @@ function activateIndex(elements: StoryElements, state: StoryState, index: number
 	}
 
 	state.isPaused = isTerminal(activeItem) || state.prefersReducedMotion;
-	updatePauseButtons(elements, state.isPaused);
+	updateControls(elements, state);
 	syncPlayback(elements, state);
 }
 
-function updatePauseButtons(elements: StoryElements, paused: boolean): void {
+function updateControls(elements: StoryElements, state: StoryState): void {
+	const activeItem = elements.items[state.currentIndex];
+	const terminal = Boolean(activeItem && isTerminal(activeItem));
+
 	elements.pauseButtons.forEach((button) => {
 		const pauseLabel = button.dataset.storyPauseLabel ?? 'Pause';
 		const resumeLabel = button.dataset.storyResumeLabel ?? 'Resume';
-		button.textContent = paused ? resumeLabel : pauseLabel;
-		button.setAttribute('aria-label', paused ? resumeLabel : pauseLabel);
+		const startOverLabel = button.dataset.storyStartOverLabel ?? 'Start over';
+		const label = terminal ? startOverLabel : state.isPaused ? resumeLabel : pauseLabel;
+		button.textContent = label;
+		button.setAttribute('aria-label', label);
+	});
+
+	elements.nextButtons.forEach((button) => {
+		button.disabled = terminal;
+		if (terminal) {
+			button.setAttribute('aria-disabled', 'true');
+		} else {
+			button.removeAttribute('aria-disabled');
+		}
 	});
 }
 
@@ -138,7 +152,7 @@ function runTick(elements: StoryElements, state: StoryState, now: number): void 
 
 function pause(state: StoryState, elements: StoryElements): void {
 	state.isPaused = true;
-	updatePauseButtons(elements, true);
+	updateControls(elements, state);
 	syncPlayback(elements, state);
 }
 
@@ -147,7 +161,7 @@ function resume(state: StoryState, elements: StoryElements): void {
 	if (!activeItem || isTerminal(activeItem)) return;
 	state.isPaused = false;
 	state.startedAtMs = performance.now() - state.elapsedMs;
-	updatePauseButtons(elements, false);
+	updateControls(elements, state);
 	syncPlayback(elements, state);
 }
 
@@ -161,7 +175,9 @@ function handleNav(action: string, elements: StoryElements, state: StoryState): 
 		return;
 	}
 	if (action === 'pause') {
-		if (state.isPaused) {
+		if (isTerminal(elements.items[state.currentIndex])) {
+			activateIndex(elements, state, 0);
+		} else if (state.isPaused) {
 			resume(state, elements);
 		} else {
 			pause(state, elements);
@@ -182,6 +198,7 @@ export function mountStoryController(root: Element): () => void {
 		counter: root.querySelector<HTMLElement>('[data-story-counter]') ?? undefined,
 		liveRegion: root.querySelector<HTMLElement>('[data-story-live-region]') ?? undefined,
 		pauseButtons: Array.from(root.querySelectorAll<HTMLButtonElement>('[data-story-nav="pause"][data-story-control="button"]')),
+		nextButtons: Array.from(root.querySelectorAll<HTMLButtonElement>('[data-story-nav="next"][data-story-control="button"]')),
 		navButtons: Array.from(root.querySelectorAll<HTMLElement>('[data-story-nav][data-story-control="button"]')),
 		hitZones: Array.from(root.querySelectorAll<HTMLElement>('[data-story-hitzone]'))
 	};
@@ -246,6 +263,8 @@ export function mountStoryController(root: Element): () => void {
 			handleNav('prev', elements, state);
 		}
 		if (keyboardEvent.key === ' ') {
+			const target = keyboardEvent.target as HTMLElement | null;
+			if (target?.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
 			event.preventDefault();
 			handleNav('pause', elements, state);
 		}

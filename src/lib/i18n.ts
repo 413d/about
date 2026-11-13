@@ -8,6 +8,9 @@ export interface UiLabels {
 	pause: string;
 	resume: string;
 	viewTextVersion: string;
+	readTextSummary: string;
+	startOver: string;
+	emailAlex: string;
 	backToStories: string;
 	storyCounter: string;
 	jumpToLanguage: string;
@@ -22,6 +25,9 @@ const labels: Record<AppLang, UiLabels> = {
 		pause: 'Pause',
 		resume: 'Resume',
 		viewTextVersion: 'Open text summary',
+		readTextSummary: 'Read the text summary',
+		startOver: 'Start over',
+		emailAlex: 'Email Alex',
 		backToStories: 'Open interactive portfolio',
 		storyCounter: 'Story',
 		jumpToLanguage: 'Language',
@@ -34,6 +40,9 @@ const labels: Record<AppLang, UiLabels> = {
 		pause: 'Пауза',
 		resume: 'Продолжить',
 		viewTextVersion: 'Открыть текстовую версию',
+		readTextSummary: 'Читать текстовую версию',
+		startOver: 'Начать заново',
+		emailAlex: 'Написать Алексу',
 		backToStories: 'Открыть интерактивное портфолио',
 		storyCounter: 'Экран',
 		jumpToLanguage: 'Язык',

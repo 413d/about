@@ -67,8 +67,13 @@ async function runDesktopChecks() {
   assert((await counter.textContent())?.includes('Story 9 / 9'), 'Failed to reach terminal CTA story');
   await saveScreenshot(page, 'desktop-en-cta');
 
-  const ctaHref = await page.locator('[data-story-cta]').first().getAttribute('href');
-  assert(Boolean(ctaHref?.startsWith('mailto:')), 'CTA href is not mailto');
+  const summaryHref = await page.locator('[data-qa="story-cta-summary"]').getAttribute('href');
+  assert(summaryHref === '/text', 'CTA summary href is not /text');
+
+  if (process.env.PUBLIC_CONTACT_EMAIL) {
+    const ctaHref = await page.locator('[data-story-cta]').first().getAttribute('href');
+    assert(Boolean(ctaHref?.startsWith('mailto:')), 'CTA email href is not mailto');
+  }
 
   await page.locator('[data-qa="lang-ru"]').click();
   await page.waitForURL(`${baseUrl}/ru`);

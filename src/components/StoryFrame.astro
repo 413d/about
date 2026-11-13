@@ -7,9 +7,12 @@ interface Props {
 	total: number;
 	labelCounter: string;
 	isActive: boolean;
+	textModeHref: string;
+	textModeLabel: string;
+	emailLabel: string;
 }
 
-const { story, total, labelCounter, isActive } = Astro.props;
+const { story, total, labelCounter, isActive, textModeHref, textModeLabel, emailLabel } = Astro.props;
 ---
 
 <section
@@ -24,5 +27,5 @@ const { story, total, labelCounter, isActive } = Astro.props;
 	aria-label={`${labelCounter} ${story.index + 1} / ${total}: ${story.title}`}
 	class="story-frame relative mb-4 transition-opacity duration-300 last:mb-0"
 >
-	<StoryContent story={story} />
+	<StoryContent story={story} textModeHref={textModeHref} textModeLabel={textModeLabel} emailLabel={emailLabel} />
 </section>

@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@media (max-height: 767px) {
+	[data-story-root][data-enhanced='true'] [data-story-stage] { height: calc(100dvh - 200px) !important; min-height: 200px !important; overflow: visible !important; }
+	[data-story-root][data-enhanced='true'] .story-frame .article { overflow-y: auto !important; }
+}
+
 :root {
 	color-scheme: dark;
 	--surface-ink: #06111f;

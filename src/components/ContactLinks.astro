@@ -9,9 +9,10 @@ type ContactLink = {
 interface Props {
 	variant?: 'icons' | 'inline';
 	qaPrefix?: string;
+	excludeEmail?: boolean;
 }
 
-const { variant = 'icons', qaPrefix = 'contact' } = Astro.props;
+const { variant = 'icons', qaPrefix = 'contact', excludeEmail = false } = Astro.props;
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL;
 const contactXUrl = import.meta.env.PUBLIC_CONTACT_X_URL;
 const contactGithubUrl = import.meta.env.PUBLIC_CONTACT_GITHUB_URL;
@@ -38,7 +39,7 @@ const links = [
 			icon: 'github'
 		}
 		: undefined
-].filter((item): item is ContactLink => item !== undefined);
+].filter((item): item is ContactLink => item !== undefined).filter((link) => !(excludeEmail && link.icon === 'email'));
 ---
 
 {links.length > 0 && variant === 'icons' && (
@@ -51,7 +52,7 @@ const links = [
 				aria-label={link.label}
 				target={link.icon === 'email' ? undefined : '_blank'}
 				rel={link.icon === 'email' ? undefined : 'noreferrer noopener'}
-				class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-amber-200/35 bg-amber-200/10 text-amber-50 shadow-[0_12px_34px_rgba(0,0,0,0.28)] transition hover:border-amber-100 hover:bg-amber-200/18 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-100"
+				class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-amber-200/35 bg-amber-200/10 text-amber-50 transition hover:border-amber-100 hover:bg-amber-200/18 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-100"
 			>
 				{link.icon === 'email' && (
 					<svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" stroke-width="1.75">
