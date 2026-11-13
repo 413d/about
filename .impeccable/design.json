@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-13T13:49:35Z",
+  "title": "Design System: Alex — Senior Fullstack Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "surface-ink": {
+        "role": "neutral",
+        "displayName": "Deep Ink",
+        "canonical": "oklch(0.175 0.0338 254.13)",
+        "tonalRamp": [
+          "oklch(0.150 0.0118 254.13)",
+          "oklch(0.264 0.0213 254.13)",
+          "oklch(0.379 0.0290 254.13)",
+          "oklch(0.493 0.0332 254.13)",
+          "oklch(0.607 0.0332 254.13)",
+          "oklch(0.721 0.0290 254.13)",
+          "oklch(0.836 0.0213 254.13)",
+          "oklch(0.950 0.0118 254.13)"
+        ]
+      },
+      "surface-ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "oklch(0.203 0.0383 257.21)",
+        "tonalRamp": [
+          "oklch(0.150 0.0134 257.21)",
+          "oklch(0.264 0.0242 257.21)",
+          "oklch(0.379 0.0329 257.21)",
+          "oklch(0.493 0.0377 257.21)",
+          "oklch(0.607 0.0377 257.21)",
+          "oklch(0.721 0.0329 257.21)",
+          "oklch(0.836 0.0242 257.21)",
+          "oklch(0.950 0.0134 257.21)"
+        ]
+      },
+      "card-veil": {
+        "role": "neutral",
+        "displayName": "Card Veil",
+        "canonical": "oklch(0.129 0.0406 264.70)",
+        "tonalRamp": [
+          "oklch(0.150 0.0142 264.70)",
+          "oklch(0.264 0.0257 264.70)",
+          "oklch(0.379 0.0348 264.70)",
+          "oklch(0.493 0.0399 264.70)",
+          "oklch(0.607 0.0399 264.70)",
+          "oklch(0.721 0.0348 264.70)",
+          "oklch(0.836 0.0257 264.70)",
+          "oklch(0.950 0.0142 264.70)"
+        ]
+      },
+      "line-cold": {
+        "role": "neutral",
+        "displayName": "Cold Line",
+        "canonical": "oklch(0.370 0.0606 253.75)",
+        "tonalRamp": [
+          "oklch(0.150 0.0212 253.75)",
+          "oklch(0.264 0.0383 253.75)",
+          "oklch(0.379 0.0520 253.75)",
+          "oklch(0.493 0.0596 253.75)",
+          "oklch(0.607 0.0596 253.75)",
+          "oklch(0.721 0.0520 253.75)",
+          "oklch(0.836 0.0383 253.75)",
+          "oklch(0.950 0.0212 253.75)"
+        ]
+      },
+      "line-warm": {
+        "role": "neutral",
+        "displayName": "Warm Line",
+        "canonical": "oklch(0.547 0.0692 71.74)",
+        "tonalRamp": [
+          "oklch(0.150 0.0242 71.74)",
+          "oklch(0.264 0.0437 71.74)",
+          "oklch(0.379 0.0594 71.74)",
+          "oklch(0.493 0.0681 71.74)",
+          "oklch(0.607 0.0681 71.74)",
+          "oklch(0.721 0.0594 71.74)",
+          "oklch(0.836 0.0437 71.74)",
+          "oklch(0.950 0.0242 71.74)"
+        ]
+      },
+      "instrument-amber": {
+        "role": "primary",
+        "displayName": "Instrument Amber",
+        "canonical": "oklch(0.808 0.1132 79.68)",
+        "tonalRamp": [
+          "oklch(0.150 0.0396 79.68)",
+          "oklch(0.264 0.0715 79.68)",
+          "oklch(0.379 0.0971 79.68)",
+          "oklch(0.493 0.1113 79.68)",
+          "oklch(0.607 0.1113 79.68)",
+          "oklch(0.721 0.0971 79.68)",
+          "oklch(0.836 0.0715 79.68)",
+          "oklch(0.950 0.0396 79.68)"
+        ]
+      },
+      "instrument-amber-soft": {
+        "role": "primary",
+        "displayName": "Soft Amber",
+        "canonical": "oklch(0.962 0.0580 95.62)",
+        "tonalRamp": [
+          "oklch(0.150 0.0203 95.62)",
+          "oklch(0.264 0.0367 95.62)",
+          "oklch(0.379 0.0498 95.62)",
+          "oklch(0.493 0.0571 95.62)",
+          "oklch(0.607 0.0571 95.62)",
+          "oklch(0.721 0.0498 95.62)",
+          "oklch(0.836 0.0367 95.62)",
+          "oklch(0.950 0.0203 95.62)"
+        ]
+      },
+      "signal-sky": {
+        "role": "secondary",
+        "displayName": "Signal Sky",
+        "canonical": "oklch(0.828 0.1013 230.32)",
+        "tonalRamp": [
+          "oklch(0.150 0.0354 230.32)",
+          "oklch(0.264 0.0640 230.32)",
+          "oklch(0.379 0.0869 230.32)",
+          "oklch(0.493 0.0996 230.32)",
+          "oklch(0.607 0.0996 230.32)",
+          "oklch(0.721 0.0869 230.32)",
+          "oklch(0.836 0.0640 230.32)",
+          "oklch(0.950 0.0354 230.32)"
+        ]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Text Primary",
+        "canonical": "oklch(0.984 0.0034 247.86)",
+        "tonalRamp": [
+          "oklch(0.150 0.0020 247.86)",
+          "oklch(0.264 0.0022 247.86)",
+          "oklch(0.379 0.0029 247.86)",
+          "oklch(0.493 0.0034 247.86)",
+          "oklch(0.607 0.0034 247.86)",
+          "oklch(0.721 0.0029 247.86)",
+          "oklch(0.836 0.0022 247.86)",
+          "oklch(0.950 0.0020 247.86)"
+        ]
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Text Secondary",
+        "canonical": "oklch(0.869 0.0198 252.89)",
+        "tonalRamp": [
+          "oklch(0.150 0.0069 252.89)",
+          "oklch(0.264 0.0125 252.89)",
+          "oklch(0.379 0.0170 252.89)",
+          "oklch(0.493 0.0195 252.89)",
+          "oklch(0.607 0.0195 252.89)",
+          "oklch(0.721 0.0170 252.89)",
+          "oklch(0.836 0.0125 252.89)",
+          "oklch(0.950 0.0069 252.89)"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Text Muted",
+        "canonical": "oklch(0.711 0.0351 256.79)",
+        "tonalRamp": [
+          "oklch(0.150 0.0123 256.79)",
+          "oklch(0.264 0.0222 256.79)",
+          "oklch(0.379 0.0301 256.79)",
+          "oklch(0.493 0.0345 256.79)",
+          "oklch(0.607 0.0345 256.79)",
+          "oklch(0.721 0.0301 256.79)",
+          "oklch(0.836 0.0222 256.79)",
+          "oklch(0.950 0.0123 256.79)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Story titles only; tight leading and balanced measure." },
+      "headline": { "displayName": "Headline", "purpose": "Text-mode page title." },
+      "title": { "displayName": "Title", "purpose": "Section headings in text mode." },
+      "body": { "displayName": "Body", "purpose": "Story lines and primary prose; story lines cap at 45ch." },
+      "body-small": { "displayName": "Body Small", "purpose": "List items, descriptions, and footer copy." },
+      "label": { "displayName": "Label", "purpose": "Uppercase eyebrows such as PROFILE and CONTACT." },
+      "control": { "displayName": "Control", "purpose": "Navigation, language pills, and micro-controls." }
+    },
+    "shadows": [
+      { "name": "stage", "value": "0 28px 90px rgba(0,0,0,0.34)", "purpose": "The single structural shadow; story stage only." },
+      { "name": "card-inset", "value": "inset 0 1px 0 rgba(255,255,255,0.08)", "purpose": "Top edge light on the story card and text header." },
+      { "name": "section-inset", "value": "inset 0 1px 0 rgba(255,255,255,0.05)", "purpose": "Softer top edge light on text sections." },
+      { "name": "warm-rule", "value": "inset 3px 0 0 rgba(231,184,103,0.34)", "purpose": "Left rule for leadership highlight items." },
+      { "name": "cool-rule", "value": "inset 3px 0 0 rgba(125,211,252,0.38)", "purpose": "Left rule for emphasized philosophy lines." }
+    ],
+    "motion": [
+      { "name": "story-crossfade", "value": "240ms ease", "purpose": "Opacity crossfade between story frames." },
+      { "name": "control", "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default color, border, and background transition." },
+      { "name": "progress", "value": "requestAnimationFrame, linear", "purpose": "Story progress fill; no CSS easing." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Previous and Next controls in the story deck.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">Next</button>",
+      "css": ".ds-btn-secondary{background:rgba(2,6,23,0.25);color:#cbd5e1;border:1px solid rgba(40,65,95,0.6);border-radius:9999px;padding:6px 12px;font-family:Aptos,Manrope,\"IBM Plex Sans\",\"Segoe UI\",sans-serif;font-size:11px;font-weight:600;line-height:1.33;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:color 150ms cubic-bezier(0.4,0,0.2,1),border-color 150ms cubic-bezier(0.4,0,0.2,1),background-color 150ms cubic-bezier(0.4,0,0.2,1)}.ds-btn-secondary:hover{border-color:#7dd3fc;color:#ffffff}.ds-btn-secondary:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}.ds-btn-secondary:active{background:rgba(2,6,23,0.4)}"
+    },
+    {
+      "name": "Pause Button",
+      "kind": "button",
+      "refersTo": "button-pause",
+      "description": "The single action-colored control in the story deck.",
+      "html": "<button class=\"ds-btn-pause\" type=\"button\">Pause</button>",
+      "css": ".ds-btn-pause{background:rgba(231,184,103,0.10);color:#fef3c7;border:1px solid rgba(231,184,103,0.45);border-radius:9999px;padding:6px 12px;font-family:Aptos,Manrope,\"IBM Plex Sans\",\"Segoe UI\",sans-serif;font-size:11px;font-weight:600;line-height:1.33;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background-color 150ms cubic-bezier(0.4,0,0.2,1),border-color 150ms cubic-bezier(0.4,0,0.2,1),color 150ms cubic-bezier(0.4,0,0.2,1)}.ds-btn-pause:hover{background:rgba(231,184,103,0.18);border-color:#fef3c7}.ds-btn-pause:focus-visible{outline:2px solid #fef3c7;outline-offset:2px}"
+    },
+    {
+      "name": "Language Pill Active",
+      "kind": "custom",
+      "refersTo": "language-active",
+      "description": "The current locale; the only large amber fill.",
+      "html": "<a class=\"ds-lang-active\" href=\"#\" aria-current=\"page\">EN</a>",
+      "css": ".ds-lang-active{display:inline-flex;align-items:center;justify-content:center;background:#fef3c7;color:#06111f;border:1px solid #fef3c7;border-radius:9999px;padding:6px 12px;font-family:Aptos,Manrope,\"IBM Plex Sans\",\"Segoe UI\",sans-serif;font-size:12px;font-weight:600;line-height:1.33;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none}.ds-lang-active:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}"
+    },
+    {
+      "name": "Language Pill Idle",
+      "kind": "custom",
+      "refersTo": "language-idle",
+      "description": "The inactive locale, waiting to be selected.",
+      "html": "<a class=\"ds-lang-idle\" href=\"#\">RU</a>",
+      "css": ".ds-lang-idle{display:inline-flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.2);color:#cbd5e1;border:1px solid rgba(40,65,95,0.65);border-radius:9999px;padding:6px 12px;font-family:Aptos,Manrope,\"IBM Plex Sans\",\"Segoe UI\",sans-serif;font-size:12px;font-weight:600;line-height:1.33;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:border-color 150ms cubic-bezier(0.4,0,0.2,1),color 150ms cubic-bezier(0.4,0,0.2,1)}.ds-lang-idle:hover{border-color:#7dd3fc;color:#ffffff}.ds-lang-idle:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}"
+    },
+    {
+      "name": "Stack Chip",
+      "kind": "chip",
+      "refersTo": "chip-stack",
+      "description": "Technology tokens in the story stack grid.",
+      "html": "<span class=\"ds-chip-stack\">React</span>",
+      "css": ".ds-chip-stack{display:inline-block;background:rgba(125,211,252,0.06);color:#f8fafc;border:1px solid rgba(125,211,252,0.25);border-radius:9999px;padding:4px 10px;font-family:Aptos,Manrope,\"IBM Plex Sans\",\"Segoe UI\",sans-serif;font-size:12px;font-weight:500;line-height:1.33;text-align:center}"
+    },
+    {
+      "name": "Story Card",
+      "kind": "card",
+      "refersTo": "card-story",
+      "description": "The narrative stage; hero variant shown.",
+      "html": "<article class=\"ds-story-card\"><p class=\"ds-eyebrow\">I'M ALEX</p><h3 class=\"ds-story-title\">Senior Fullstack Developer building reliable TypeScript products end to end</h3><div class=\"ds-story-lines\"><p>Senior Fullstack Developer owning architecture and delivery across frontend and backend.</p><p>I design TypeScript systems that stay readable, testable, and reliable in production.</p></div></article>",
+      "css": ".ds-story-card{position:relative;overflow:hidden;max-width:448px;border:1px solid rgba(40,65,95,0.35);border-radius:32px;padding:32px;background:linear-gradient(135deg,#1e293b 0%,#0b1220 54%,#020617 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);color:#f8fafc;font-family:Aptos,Manrope,\"IBM Plex Sans\",\"Segoe UI\",sans-serif}.ds-story-card::before{content:\"\";position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px);background-size:38px 38px;opacity:0.35;pointer-events:none}.ds-story-card::after{content:\"\";position:absolute;right:-80px;top:-80px;width:176px;height:176px;border:1px solid rgba(231,184,103,0.20);border-radius:9999px;pointer-events:none}.ds-story-card>*{position:relative;z-index:1}.ds-eyebrow{margin:0;font-size:10px;font-weight:700;line-height:1.5;letter-spacing:0.18em;text-transform:uppercase;color:rgba(254,243,199,0.75)}.ds-story-title{margin:12px 0 0;font-size:30px;font-weight:600;line-height:1.08;color:#f8fafc;text-wrap:balance}.ds-story-lines{margin-top:24px;padding-left:16px;border-left:1px solid rgba(231,184,103,0.45);display:grid;gap:16px;font-size:16px;line-height:1.625;color:#cbd5e1}.ds-story-lines p{margin:0;max-width:45ch}"
+    },
+    {
+      "name": "Text Section Card",
+      "kind": "card",
+      "refersTo": "card-section",
+      "description": "Centered reading section in the text summary.",
+      "html": "<section class=\"ds-section-card\"><h3>Engineering Approach</h3><p>I optimize for predictable delivery, safe change, and long-term maintainability.</p><ul><li>Clean code that reduces onboarding and review time</li><li>Automated testing for release confidence</li></ul></section>",
+      "css": ".ds-section-card{border:1px solid rgba(40,65,95,0.3);border-radius:24px;background:rgba(2,6,23,0.35);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);padding:20px;text-align:center;color:#cbd5e1;font-family:Aptos,Manrope,\"IBM Plex Sans\",\"Segoe UI\",sans-serif}.ds-section-card h3{margin:0;font-size:18px;font-weight:600;line-height:1.56;color:#f1f5f9}.ds-section-card p{margin:8px 0 0;font-size:14px;line-height:1.43;color:#cbd5e1}.ds-section-card ul{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px;text-align:left}.ds-section-card li{border-left:1px solid rgba(125,211,252,0.25);padding-left:12px;font-size:14px;line-height:1.43;color:#e2e8f0}"
+    },
+    {
+      "name": "Contact Icon Link",
+      "kind": "custom",
+      "refersTo": "icon-link",
+      "description": "Email, X, and GitHub contact affordances.",
+      "html": "<a class=\"ds-contact\" href=\"#\" aria-label=\"Email\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3.75 7.5h16.5v9a1.5 1.5 0 0 1-1.5 1.5h-13.5a1.5 1.5 0 0 1-1.5-1.5v-9Z\"></path><path d=\"m4.5 8.25 7.5 5.25 7.5-5.25\"></path></svg></a>",
+      "css": ".ds-contact{display:inline-grid;place-items:center;width:44px;height:44px;border:1px solid rgba(231,184,103,0.35);border-radius:9999px;background:rgba(231,184,103,0.10);color:#fffbeb;box-shadow:0 12px 34px rgba(0,0,0,0.28);transition:border-color 150ms cubic-bezier(0.4,0,0.2,1),background-color 150ms cubic-bezier(0.4,0,0.2,1),color 150ms cubic-bezier(0.4,0,0.2,1)}.ds-contact svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75}.ds-contact:hover{border-color:#fef3c7;background:rgba(231,184,103,0.18);color:#ffffff}.ds-contact:focus-visible{outline:2px solid #fef3c7;outline-offset:2px}"
+    },
+    {
+      "name": "Monogram",
+      "kind": "custom",
+      "refersTo": "monogram",
+      "description": "The LX identity mark in the header.",
+      "html": "<a class=\"ds-monogram\" href=\"#\" aria-label=\"Go to home\">LX</a>",
+      "css": ".ds-monogram{display:grid;place-items:center;width:36px;height:36px;border:1px solid rgba(254,243,199,0.4);border-radius:9999px;background:rgba(254,243,199,0.10);color:#fffbeb;font-family:Aptos,Manrope,\"IBM Plex Sans\",\"Segoe UI\",sans-serif;font-size:11px;font-weight:700;line-height:1;letter-spacing:0.08em;text-decoration:none;transition:border-color 150ms cubic-bezier(0.4,0,0.2,1)}.ds-monogram:hover{border-color:#fef3c7}.ds-monogram:focus-visible{outline:2px solid #fef3c7;outline-offset:2px}"
+    },
+    {
+      "name": "Story Progress Rail",
+      "kind": "custom",
+      "refersTo": "chip-stack",
+      "description": "Nine-segment narrative progress indicator.",
+      "html": "<div class=\"ds-rail\"><span class=\"ds-seg\"><span class=\"ds-fill\" style=\"width:100%\"></span></span><span class=\"ds-seg\"><span class=\"ds-fill\" style=\"width:42%\"></span></span><span class=\"ds-seg\"><span class=\"ds-fill\" style=\"width:0%\"></span></span></div>",
+      "css": ".ds-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;width:100%;max-width:280px}.ds-seg{display:block;height:4px;overflow:hidden;border-radius:9999px;background:rgba(51,65,85,0.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05)}.ds-fill{display:block;height:100%;border-radius:9999px;background:linear-gradient(90deg,#fde68a,#7dd3fc,#f8fafc)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Signal Room",
+    "overview": "The portfolio behaves like a dark instrument room tuned to two signals. Deep navy-black air fills the frame; a faint 44px grid fades in from the top; one narrow story card sits in the center like a console readout. Warm Instrument Amber marks attention and action, while cool Signal Sky marks system information and focus. The atmosphere is cinematic, but the content is operational: a progress rail ticks across nine segments, labels are uppercase and exact, and every claim is set in plain sight.\n\nThe system is built for a bilingual, credibility-first portfolio. It never assumes English string lengths, so Russian copy must fit the same frames without collapsing the rhythm. The story deck is deliberately narrow and viewport-locked; the text mode opens into a wider reading column. Both modes share the same ink surfaces, hairline borders, and two-signal palette, so switching modes changes density, not identity.\n\nDensity is low by design. One idea occupies each story frame; one section occupies each text card. Ornament is limited to atmospheric background washes, a single arc, a short gradient rule, and the progress rail. The interface recedes so the engineering narrative leads.",
+    "keyCharacteristics": [
+      "Deep ink surfaces with a warm-to-cool atmospheric wash and a masked 44px grid.",
+      "Two accents only: warm Instrument Amber and cool Signal Sky, used as thin lines and small fills.",
+      "Rounded instrument controls: pills, 1px luminous borders, uppercase micro-labels.",
+      "One narrow story column, one wider text column, both built for English and Russian parity.",
+      "Ambient depth: translucent cards, inset top light, and one structural shadow on the story stage.",
+      "Motion is a quiet crossfade and a linear progress tick; reduced motion freezes the deck."
+    ],
+    "rules": [
+      { "name": "The Rarity Rule", "body": "Amber and sky are evidence, not decoration. Keep both accents under roughly 10% of any screen; large fields remain ink.", "section": "colors" },
+      { "name": "The Two Signals Rule", "body": "Amber means warmth, attention, and action; sky means system, information, and focus. Never swap their roles for variety.", "section": "colors" },
+      { "name": "The One Family Rule", "body": "Use the system sans only. Build hierarchy with weight, size, and tracking; do not introduce a display face.", "section": "typography" },
+      { "name": "The Micro-Label Rule", "body": "Uppercase labels stay at 12px or below and carry at least 0.1em tracking. Never set an uppercase label in body size.", "section": "typography" },
+      { "name": "The One Column Rule", "body": "Story content stays in a single narrow column. Do not split the story card into multi-column layouts at desktop; the narrow measure is the pacing.", "section": "layout" },
+      { "name": "The Single Structural Shadow Rule", "body": "Only the story stage casts an outward shadow. Every other surface earns depth through translucency, borders, and inset edge light.", "section": "elevation" },
+      { "name": "The Still Air Rule", "body": "Background washes and grid are fixed atmosphere, not per-card effects. Do not add a new glow to each component.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep surfaces ink and let amber and sky appear as thin lines, small fills, and labels.",
+      "Do build hierarchy from weight, size, and tracking within the single system sans.",
+      "Do keep the story column at 28rem and the text column at 48rem.",
+      "Do use pill controls with 1px luminous borders and uppercase micro-labels.",
+      "Do keep the 44px background grid with its top-down mask.",
+      "Do use the 240ms opacity crossfade and freeze motion under prefers-reduced-motion.",
+      "Do preserve the raised-card reading: 1px cold border plus inset top light."
+    ],
+    "donts": [
+      "Don't fill large areas with amber or sky; their rarity is the point.",
+      "Don't add a second display family, serif, or decorative script.",
+      "Don't give every card an outward drop shadow; only the story stage casts one.",
+      "Don't square the corners or remove the inset top light.",
+      "Don't widen the story card into a multi-column layout.",
+      "Don't use pure black or pure white as surface or body text; use ink and slate-white.",
+      "Don't add glass blur, neon glow, or per-component background washes."
+    ]
+  }
+}
