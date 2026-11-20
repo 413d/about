@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
-@media (max-height: 767px) {
-	[data-story-root][data-enhanced='true'] [data-story-stage] { height: calc(100dvh - 200px) !important; min-height: 200px !important; overflow: visible !important; }
-	[data-story-root][data-enhanced='true'] .story-frame .article { overflow-y: auto !important; }
+@theme {
+	--color-ink: #06111f;
+	--color-ink-soft: #0b1728;
+	--color-line-cold: #28415f;
+	--color-line-warm: #8a6a42;
+	/* The wash stop. Sits in line-warm's hue family (h 68 vs 72) but carries more
+	   chroma, because a desaturated warm mixed into cold ink cancels to neutral. */
+	--color-ember: #a8763c;
+	--color-instrument: #e7b867;
+	--color-instrument-soft: #fef3c7;
+	--color-signal: #7dd3fc;
+
+	--font-sans: Aptos, Manrope, "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
 :root {
@@ -11,6 +21,7 @@
 	--surface-ink-soft: #0b1728;
 	--line-cold: #28415f;
 	--line-warm: #8a6a42;
+	--ember: #a8763c;
 	--accent: #e7b867;
 	--accent-cold: #7dd3fc;
 }
@@ -19,11 +30,31 @@
 	box-sizing: border-box;
 }
 
+/* Focus is the cold signal everywhere. Declared unlayered so it outranks the
+   utility classes on individual controls; the offset stays with each control,
+   because a ring on a circular control is not the same ring as one on a card. */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+	outline: 2px solid var(--color-signal);
+}
+
+html {
+	overflow-x: hidden;
+	scrollbar-width: thin;
+	scrollbar-color: var(--line-cold) transparent;
+}
+
 body {
 	background:
 		linear-gradient(115deg, rgba(231, 184, 103, 0.12), transparent 30%),
 		radial-gradient(circle at 82% 12%, rgba(125, 211, 252, 0.12), transparent 28%),
 		linear-gradient(135deg, #172235 0%, #06111f 54%, #020614 100%);
+}
+
+::selection {
+	background: color-mix(in oklab, var(--accent) 32%, transparent);
+	color: #f8fafc;
 }
 
 .story-shell {
@@ -42,43 +73,437 @@ body {
 	mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.68), transparent 74%);
 }
 
+/* ---------------------------------------------------------------------------
+   Deck layout. Base is a released, document-flow layout: cards take the height
+   their content needs and the page scrolls. The viewport-locked stage is an
+   opt-in above 560px of viewport height, and the controller drops the deck back
+   to flow whenever a card's content would not fit. Nothing is ever clipped and
+   no card ever scrolls internally.
+--------------------------------------------------------------------------- */
+
+[data-story-stage] {
+	container-type: normal;
+}
+
+.story-frame[data-active='false'] {
+	display: none;
+}
+
+@media (min-height: 561px) {
+	/* Without container queries the card scale below cannot resolve, so the stage
+	   stays released and the static scale governs. A lock without its scale
+	   would clip, which is the one thing this layout must never do. */
+	@supports (container-type: size) {
+		[data-story-layout='stage'] [data-story-stage] {
+			container-type: size;
+			container-name: story;
+			height: min(74dvh, calc(100dvh - 196px));
+			min-height: min(320px, calc(100dvh - 196px));
+			max-height: 44rem;
+			overflow: hidden;
+		}
+
+		[data-story-layout='stage'] .story-frame {
+			position: absolute;
+			inset: 0;
+		}
+
+		[data-story-layout='stage'] .story-frame[data-active='false'] {
+			display: block;
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+}
+
 .story-frame {
 	opacity: 1;
 }
 
-.story-frame[data-active='false'] {
-	opacity: 0;
-	pointer-events: none;
-}
-
-html {
-	overflow-x: hidden;
-}
-
-[data-story-root][data-enhanced='true'] [data-story-stage] {
-	height: min(74dvh, calc(100dvh - 210px));
-	min-height: min(320px, calc(100dvh - 210px));
-	overflow: hidden;
-}
-
-[data-story-root][data-enhanced='true'] .story-frame {
-	position: absolute;
-	inset: 0;
-	margin-bottom: 0;
-}
-
 [data-story-root][data-ready='true'] .story-frame {
-	transition: opacity 240ms ease;
-}
-
-[data-story-root][data-enhanced='true'] .story-frame[data-active='true'] {
-	opacity: 1;
-	pointer-events: auto;
+	transition: opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-story-root][data-terminal-active='true'] [data-story-hitzone] {
 	pointer-events: none;
 }
+
+/* ---------------------------------------------------------------------------
+   Story card: one scale, applied to padding, type, gaps and chips. Static
+   values are the base; a locked stage overrides them with card-relative units
+   so the card is elastic inside its own box.
+--------------------------------------------------------------------------- */
+
+/* Card surfaces: ink is the base, and each card leans either cold or warm — the
+   same two voices the rules and the rail already speak. No third hue enters.
+   Warm stops use --color-ember at 40% or more: below that a warm mixed into cold
+   ink passes through achromatic grey, so the corner would read as a grey smudge
+   rather than a warm one. Small warm corners get a later mid stop, not a weaker
+   stop. */
+.story-card[data-variant='hero'] {
+	background-image: linear-gradient(
+		135deg,
+		color-mix(in oklab, var(--color-line-cold) 62%, var(--color-ink)),
+		var(--color-ink) 70%,
+		color-mix(in oklab, var(--color-ember) 40%, var(--color-ink))
+	);
+}
+
+.story-card[data-variant='text-emphasis'] {
+	background-image: linear-gradient(
+		135deg,
+		color-mix(in oklab, var(--color-line-cold) 22%, var(--color-ink)),
+		var(--color-ink) 52%,
+		color-mix(in oklab, var(--color-line-cold) 30%, var(--color-ink))
+	);
+}
+
+.story-card[data-variant='stack-grid'] {
+	background-image: linear-gradient(
+		135deg,
+		color-mix(in oklab, var(--color-line-cold) 34%, var(--color-ink)),
+		var(--color-ink) 56%,
+		var(--color-ink)
+	);
+}
+
+.story-card[data-variant='systems-diagram'] {
+	background-image: linear-gradient(
+		135deg,
+		color-mix(in oklab, var(--color-ember) 42%, var(--color-ink)),
+		var(--color-ink) 34%,
+		color-mix(in oklab, var(--color-line-cold) 26%, var(--color-ink))
+	);
+}
+
+.story-card[data-variant='problem-cards'] {
+	background-image: linear-gradient(
+		135deg,
+		color-mix(in oklab, var(--color-line-cold) 26%, var(--color-ink)),
+		var(--color-ink) 54%,
+		color-mix(in oklab, var(--color-ember) 44%, var(--color-ink))
+	);
+}
+
+.story-card[data-variant='leadership-signals'] {
+	background-image: linear-gradient(
+		135deg,
+		color-mix(in oklab, var(--color-line-cold) 30%, var(--color-ink)),
+		var(--color-ink) 52%,
+		color-mix(in oklab, var(--color-line-cold) 14%, var(--color-ink))
+	);
+}
+
+.story-card[data-variant='growth-path'] {
+	background-image: linear-gradient(
+		135deg,
+		color-mix(in oklab, var(--color-line-cold) 24%, var(--color-ink)),
+		var(--color-ink) 56%,
+		color-mix(in oklab, var(--color-ember) 54%, var(--color-ink))
+	);
+}
+
+.story-card[data-variant='cta-block'] {
+	background-image: linear-gradient(
+		135deg,
+		var(--color-ink),
+		color-mix(in oklab, var(--color-ink-soft) 70%, var(--color-ink)) 46%,
+		color-mix(in oklab, var(--color-ember) 52%, var(--color-ink))
+	);
+}
+
+
+.story-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	border: 1px solid color-mix(in oklab, var(--line-cold) 72%, transparent);
+	border-radius: 2rem;
+	padding: var(--story-pad);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+	background-color: var(--color-ink);
+
+	--story-pad: 1.25rem;
+	--story-title: clamp(1.5rem, 6vw, 1.875rem);
+	--story-body: 0.9375rem;
+	--story-lead: 0.9375rem;
+	--story-eyebrow: 0.625rem;
+	--story-eyebrow-gap: 0.375rem;
+	--story-block-gap: 0.875rem;
+	--story-line-gap: 0.5rem;
+	--story-chip-font: 0.6875rem;
+	--story-chip-py: 0.3125rem;
+	--story-chip-px: 0.625rem;
+	--story-chip-gap: 0.3125rem;
+	--story-tile-py: 0.5rem;
+	--story-diagram-font: 0.625rem;
+	--story-tile-radius: 1rem;
+}
+
+[data-story-layout='stage'] .story-card {
+	/* Scale with the card's own box: height keeps the deck viewport-locked,
+	   width keeps long translated words from wrapping into extra lines. */
+	--story-pad: clamp(1rem, min(4.8cqh, 7.6cqw), 2rem);
+	--story-title: clamp(1.25rem, min(4.5cqh, 6.7cqw), 1.875rem);
+	--story-body: clamp(0.8125rem, min(2.58cqh, 4.05cqw), 1rem);
+	--story-lead: clamp(0.875rem, min(2.72cqh, 4.2cqw), 1rem);
+	--story-eyebrow: clamp(0.625rem, min(1.55cqh, 2.9cqw), 0.6875rem);
+	--story-eyebrow-gap: clamp(0.25rem, min(1.1cqh, 1.6cqw), 0.5rem);
+	--story-block-gap: clamp(0.625rem, min(3cqh, 4.2cqw), 1.25rem);
+	--story-line-gap: clamp(0.375rem, min(1.8cqh, 2.4cqw), 0.75rem);
+	--story-chip-font: clamp(0.6875rem, min(1.85cqh, 3.2cqw), 0.75rem);
+	--story-chip-py: clamp(0.1875rem, min(1cqh, 1.2cqw), 0.375rem);
+	--story-chip-px: clamp(0.375rem, min(1.9cqh, 2.6cqw), 0.75rem);
+	--story-chip-gap: clamp(0.1875rem, min(1.1cqh, 1.6cqw), 0.5rem);
+	--story-tile-py: clamp(0.375rem, min(1.5cqh, 1.7cqw), 0.625rem);
+	--story-diagram-font: clamp(0.5625rem, min(1.6cqh, 2.2cqw), 0.6875rem);
+	--story-tile-radius: clamp(0.75rem, 2.4cqh, 1rem);
+}
+
+/* Decorations sit above the surface and below the content. The arc is fluid and
+   anchored by its centre, so the corner treatment scales with the card instead of
+   eating a fixed 96px of a narrow one. It is a watermark: the card body paints
+   above it, so the ring can never overprint a glyph. */
+.story-decor {
+	z-index: 0;
+}
+
+.story-decor-arc {
+	--arc: clamp(6.5rem, 5.1rem + 7.9vw, 11rem);
+	width: var(--arc);
+	height: var(--arc);
+	right: calc(var(--arc) * -0.45);
+	top: calc(var(--arc) * -0.45);
+}
+
+.story-card[data-variant='cta-block'] .story-decor-hairline {
+	display: none;
+}
+
+.story-card-body {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+.story-eyebrow {
+	font-size: var(--story-eyebrow);
+	font-weight: 700;
+	line-height: 1.5;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: color-mix(in oklab, var(--color-instrument-soft) 82%, transparent);
+}
+
+.story-title {
+	font-size: var(--story-title);
+	font-weight: 600;
+	line-height: 1.08;
+	letter-spacing: -0.01em;
+	text-wrap: balance;
+	color: #f8fafc;
+}
+
+.story-eyebrow + .story-title {
+	margin-top: var(--story-eyebrow-gap);
+}
+
+.story-lines {
+	display: grid;
+	gap: var(--story-line-gap);
+	margin-top: var(--story-block-gap);
+	font-size: var(--story-body);
+	line-height: 1.55;
+	color: color-mix(in oklab, #e2e8f0 92%, transparent);
+}
+
+.story-lines > * {
+	max-width: 45ch;
+}
+
+.story-lead {
+	border-inline-start: 1px solid color-mix(in oklab, var(--color-instrument) 45%, transparent);
+	padding-inline-start: var(--story-block-gap);
+	font-size: var(--story-lead);
+	line-height: 1.5;
+}
+
+/* Stack / systems chips */
+.story-chips {
+	--story-chip-cols: 2;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--story-chip-gap);
+	margin-top: var(--story-block-gap);
+	font-size: var(--story-chip-font);
+	line-height: 1.3;
+}
+
+.story-chips > li {
+	flex: 1 1 calc((100% - (var(--story-chip-cols) - 1) * var(--story-chip-gap)) / var(--story-chip-cols));
+	min-width: 0;
+	display: grid;
+	place-items: center;
+	border-radius: 9999px;
+	border: 1px solid color-mix(in oklab, var(--color-signal) 26%, transparent);
+	background: color-mix(in oklab, var(--color-signal) 7%, transparent);
+	padding: var(--story-chip-py) var(--story-chip-px);
+	text-align: center;
+	font-weight: 500;
+	text-wrap: balance;
+	color: #f1f5f9;
+}
+
+.story-chips--muted > li {
+	border-color: color-mix(in oklab, var(--line-cold) 90%, transparent);
+	background: rgba(2, 6, 23, 0.25);
+	color: #cbd5e1;
+}
+
+@media (min-width: 640px) {
+	.story-chips {
+		--story-chip-cols: 3;
+	}
+
+	.story-chips[data-cols='4'] {
+		--story-chip-cols: 4;
+	}
+
+	.story-chips[data-cols='5'] {
+		--story-chip-cols: 5;
+	}
+}
+
+/* Emphasised lines (philosophy) */
+.story-emphasis {
+	display: grid;
+	gap: var(--story-line-gap);
+	margin-top: var(--story-block-gap);
+	font-size: var(--story-body);
+	line-height: 1.55;
+	color: #e2e8f0;
+}
+
+.story-emphasis > p {
+	border-radius: var(--story-tile-radius);
+	border: 1px solid color-mix(in oklab, var(--color-signal) 16%, transparent);
+	background: rgba(2, 6, 23, 0.35);
+	padding: var(--story-tile-py) var(--story-chip-px);
+	box-shadow: inset 3px 0 0 rgba(125, 211, 252, 0.38);
+}
+
+/* Neutral tiles (problem cards) */
+.story-tiles {
+	display: grid;
+	gap: var(--story-chip-gap);
+	margin-top: var(--story-block-gap);
+	font-size: var(--story-chip-font);
+	line-height: 1.4;
+	color: #e2e8f0;
+}
+
+.story-tiles > li {
+	border-radius: var(--story-tile-radius);
+	border: 1px solid color-mix(in oklab, var(--line-cold) 85%, transparent);
+	background: rgba(2, 6, 23, 0.35);
+	padding: var(--story-tile-py) var(--story-chip-px);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+@media (min-width: 640px) {
+	.story-tiles {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+/* Warm highlights (leadership) */
+.story-highlights {
+	display: grid;
+	gap: var(--story-chip-gap);
+	margin-top: var(--story-block-gap);
+	font-size: var(--story-chip-font);
+	line-height: 1.4;
+	color: #e2e8f0;
+}
+
+.story-highlights > li {
+	border-radius: var(--story-tile-radius);
+	border: 1px solid color-mix(in oklab, var(--color-instrument) 20%, transparent);
+	background: rgba(231, 184, 103, 0.055);
+	padding: var(--story-tile-py) var(--story-chip-px);
+	box-shadow: inset 3px 0 0 rgba(231, 184, 103, 0.34);
+}
+
+/* Systems diagram */
+.story-diagram {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--story-chip-gap);
+	margin-top: var(--story-block-gap);
+	font-size: var(--story-diagram-font);
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	text-align: center;
+	color: #e2e8f0;
+}
+
+.story-diagram > li {
+	border-radius: var(--story-tile-radius);
+	padding: var(--story-tile-py) var(--story-chip-px);
+	border: 1px solid color-mix(in oklab, var(--color-signal) 22%, transparent);
+	background: color-mix(in oklab, var(--color-signal) 8%, transparent);
+}
+
+.story-diagram > li[data-flow='warm'] {
+	border-color: color-mix(in oklab, var(--color-instrument) 28%, transparent);
+	background: color-mix(in oklab, var(--color-instrument) 9%, transparent);
+}
+
+/* Growth rail */
+.story-rail {
+	height: clamp(0.25rem, 1.2cqh, 0.5rem);
+	width: 100%;
+	overflow: hidden;
+	border-radius: 9999px;
+	background: rgba(40, 65, 95, 0.55);
+	margin-top: var(--story-block-gap);
+}
+
+.story-rail > span {
+	display: block;
+	height: 100%;
+	width: 66%;
+	border-radius: 9999px;
+	background: linear-gradient(
+		to right,
+		color-mix(in oklab, var(--accent-cold) 78%, transparent),
+		color-mix(in oklab, #dbeafe 58%, transparent) 50%,
+		color-mix(in oklab, var(--accent) 78%, transparent)
+	);
+}
+
+/* CTA actions: anchored to the bottom of the card */
+.story-actions {
+	margin-top: auto;
+	padding-top: var(--story-block-gap);
+	display: grid;
+	gap: 0.5rem;
+}
+
+.story-counter {
+	font-variant-numeric: tabular-nums;
+	letter-spacing: 0.04em;
+}
+
+/* ---------------------------------------------------------------------------
+   No JavaScript: one card is shown, released to the height of its content, and
+   the hint under the deck points at the text version.
+--------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
 	[data-story-root] * {

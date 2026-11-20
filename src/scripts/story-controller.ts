@@ -47,6 +47,21 @@ function stopLoop(state: StoryState): void {
 	}
 }
 
+/**
+ * The stage layout locks the deck to the viewport and sizes every card from the
+ * stage box. If any card's content still does not fit — a narrow phone, a long
+ * translation, larger user type — the deck drops back to document flow so the
+ * page scrolls instead of the card clipping or scrolling on its own.
+ */
+function syncLayout(root: Element): void {
+	const rootEl = root as HTMLElement;
+	rootEl.dataset.storyLayout = 'stage';
+	const overflows = Array.from(root.querySelectorAll<HTMLElement>('.story-card-body')).some(
+		(body) => body.scrollHeight > body.clientHeight + 1
+	);
+	if (overflows) rootEl.dataset.storyLayout = 'flow';
+}
+
 function startLoop(elements: StoryElements, state: StoryState): void {
 	if (state.rafId !== null) return;
 	const loop = (now: number) => {
@@ -77,9 +92,6 @@ function activateIndex(elements: StoryElements, state: StoryState, index: number
 	elements.items.forEach((item, idx) => {
 		const active = idx === bounded;
 		item.dataset.active = active ? 'true' : 'false';
-		item.classList.toggle('opacity-100', active);
-		item.classList.toggle('opacity-0', !active);
-		item.classList.toggle('pointer-events-none', !active);
 		item.setAttribute('aria-hidden', active ? 'false' : 'true');
 		if (active) {
 			item.removeAttribute('inert');
@@ -226,11 +238,25 @@ export function mountStoryController(root: Element): () => void {
 	}
 
 	activateIndex(elements, state, state.currentIndex);
+	syncLayout(root);
 	requestAnimationFrame(() => {
 		(root as HTMLElement).dataset.ready = 'true';
 	});
 
 	const cleanups: Array<() => void> = [];
+
+	let layoutTimer: number | undefined;
+	const onResize = () => {
+		window.clearTimeout(layoutTimer);
+		layoutTimer = window.setTimeout(() => syncLayout(root), 150);
+	};
+	window.addEventListener('resize', onResize);
+	cleanups.push(() => {
+		window.removeEventListener('resize', onResize);
+		window.clearTimeout(layoutTimer);
+	});
+
+	void document.fonts?.ready.then(() => syncLayout(root));
 
 	elements.navButtons.forEach((button) => {
 		const onClick = () => {
@@ -261,6 +287,12 @@ export function mountStoryController(root: Element): () => void {
 		}
 		if (keyboardEvent.key === 'ArrowLeft' || keyboardEvent.key === 'ArrowUp') {
 			handleNav('prev', elements, state);
+		}
+		if (keyboardEvent.key === 'Home' || keyboardEvent.key === 'End') {
+			const target = keyboardEvent.target as HTMLElement | null;
+			if (target?.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
+			event.preventDefault();
+			activateIndex(elements, state, keyboardEvent.key === 'Home' ? 0 : state.storyCount - 1);
 		}
 		if (keyboardEvent.key === ' ') {
 			const target = keyboardEvent.target as HTMLElement | null;
@@ -294,6 +326,8 @@ export function mountStoryController(root: Element): () => void {
 		state.touchStartY = null;
 		state.touchStartX = null;
 		if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx)) return;
+		// A released deck scrolls with the page: never swallow the vertical gesture.
+		if ((root as HTMLElement).dataset.storyLayout === 'flow') return;
 		if (dy < 0) handleNav('next', elements, state);
 		if (dy > 0) handleNav('prev', elements, state);
 	};

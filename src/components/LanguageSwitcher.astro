@@ -7,6 +7,10 @@ interface Props {
 }
 
 const { lang, currentPathEn, currentPathRu, label } = Astro.props;
+
+const pillBase = 'min-h-9 max-sm:min-h-11 inline-flex items-center rounded-full border px-3 py-1.5 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal';
+const pillInactive = 'border-line-cold bg-ink/20 hover:border-signal hover:text-white';
+const pillActive = 'border-instrument-soft bg-instrument-soft text-ink';
 ---
 
 <nav aria-label={label} class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-slate-300">
@@ -16,10 +20,7 @@ const { lang, currentPathEn, currentPathRu, label } = Astro.props;
 		hreflang="en"
 		lang="en"
 		aria-current={lang === 'en' ? 'page' : undefined}
-		class:list={[
-			'rounded-full border px-3 py-1.5 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200',
-			lang === 'en' ? 'border-amber-100 bg-amber-100 text-slate-950' : 'border-slate-500/65 bg-slate-950/20 hover:border-sky-200 hover:text-white'
-		]}
+		class:list={[pillBase, lang === 'en' ? pillActive : pillInactive]}
 	>
 		EN
 	</a>
@@ -29,10 +30,7 @@ const { lang, currentPathEn, currentPathRu, label } = Astro.props;
 		hreflang="ru"
 		lang="ru"
 		aria-current={lang === 'ru' ? 'page' : undefined}
-		class:list={[
-			'rounded-full border px-3 py-1.5 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200',
-			lang === 'ru' ? 'border-amber-100 bg-amber-100 text-slate-950' : 'border-slate-500/65 bg-slate-950/20 hover:border-sky-200 hover:text-white'
-		]}
+		class:list={[pillBase, lang === 'ru' ? pillActive : pillInactive]}
 	>
 		RU
 	</a>

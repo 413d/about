@@ -16,6 +16,13 @@ export interface UiLabels {
 	jumpToLanguage: string;
 	noJsHint: string;
 	storyExperienceLabel: string;
+	keyHints: string;
+	flowApi: string;
+	flowQueue: string;
+	flowData: string;
+	goHome: string;
+	contactLinks: string;
+	contactEmail: string;
 }
 
 const labels: Record<AppLang, UiLabels> = {
@@ -32,7 +39,14 @@ const labels: Record<AppLang, UiLabels> = {
 		storyCounter: 'Story',
 		jumpToLanguage: 'Language',
 		noJsHint: 'JavaScript is disabled. Open the text summary for the complete portfolio overview.',
-		storyExperienceLabel: 'Interactive engineering portfolio'
+		storyExperienceLabel: 'Interactive engineering portfolio',
+		keyHints: 'Use the left and right arrow keys to move between screens, Home and End to jump to the first or last one, and space to pause or resume.',
+		flowApi: 'API',
+		flowQueue: 'Queue',
+		flowData: 'Data',
+		goHome: 'Go to home',
+		contactLinks: 'Contact links',
+		contactEmail: 'Email'
 	},
 	ru: {
 		next: 'Далее',
@@ -47,7 +61,14 @@ const labels: Record<AppLang, UiLabels> = {
 		storyCounter: 'Экран',
 		jumpToLanguage: 'Язык',
 		noJsHint: 'JavaScript отключен. Откройте текстовую версию, чтобы посмотреть портфолио полностью.',
-		storyExperienceLabel: 'Интерактивное инженерное портфолио'
+		storyExperienceLabel: 'Интерактивное инженерное портфолио',
+		keyHints: 'Стрелки влево и вправо переключают экраны, Home и End переносят к первому или последнему, пробел ставит паузу и снимает её.',
+		flowApi: 'API',
+		flowQueue: 'Очередь',
+		flowData: 'Данные',
+		goHome: 'На главную',
+		contactLinks: 'Способы связи',
+		contactEmail: 'Почта'
 	}
 };
 

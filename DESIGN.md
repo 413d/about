@@ -7,6 +7,7 @@ colors:
   card-veil: "rgba(2, 6, 23, 0.55)"
   line-cold: "#28415f"
   line-warm: "#8a6a42"
+  ember: "#a8763c"
   instrument-amber: "#e7b867"
   instrument-amber-soft: "#fef3c7"
   signal-sky: "#7dd3fc"
@@ -154,7 +155,7 @@ The palette is a dark navy instrument panel with one warm readout and one cool s
 - **Signal Sky** (#7dd3fc): The cool signal. Used for focus outlines, hover borders, stack chips, systems accents, cool rule shadows, and the cool middle of the progress gradient. It indicates system response, not action.
 
 ### Neutral
-- **Deep Ink** (#06111f): Page base and the darkest end of the body gradient.
+- **Deep Ink** (#06111f): Page base, card base, and the darkest end of every card wash.
 - **Ink Soft** (#0b1728): Raised card base and the lighter end of dark surfaces.
 - **Card Veil** (rgba(2, 6, 23, 0.55)): Translucent fill for the text summary header; sections use the same ink at 35%.
 - **Cold Line** (#28415f): Informational borders and dividers, usually applied at 30–65% opacity.
@@ -192,11 +193,17 @@ The palette is a dark navy instrument panel with one warm readout and one cool s
 
 ## Layout
 
-Story mode is a viewport-locked experience: a `max-width: 72rem` shell with `100dvh`, a compact header row, a nine-segment progress rail, and a centered story column capped at `28rem`. The stage height is `min(74dvh, calc(100dvh - 210px))` with a `min-height` of `min(320px, calc(100dvh - 210px))`; the card is 448px wide on desktop and 358px at a 390px viewport. Text mode uses a `48rem` reading column with stacked rounded sections and a footer.
+Story mode is a viewport-locked experience: a `max-width: 72rem` shell with `100dvh`, a compact header row, a nine-segment progress rail, and a centered story column capped at `28rem`. The stage height is `min(74dvh, calc(100dvh - 196px))`, `min-height: min(320px, calc(100dvh - 196px))`, `max-height: 44rem`; the card is 448px wide on desktop and 358px at a 390px viewport. Text mode uses a `48rem` reading column with stacked rounded sections and a footer.
 
 The spacing rhythm is 4, 8, 12, 16, 20, 24, and 32px. Card padding steps from 16px on small screens to 32px on desktop. Story titles step from 20px to 30px; text-mode sections step from 18px to 30px for the page title. The primary breakpoint is 640px.
 
 **The One Column Rule.** Story content stays in a single narrow column. Do not split the story card into multi-column layouts at desktop; the narrow measure is the pacing.
+
+**The Internal Scale Rule.** The story card does not use breakpoints. It is a container (`container-type: size` on the stage) and every dimension inside it is one of the `--story-*` variables on `.story-card`, declared twice: a static px scale, and a container-relative scale of the form `clamp(min, min(Xcqh, Ycqw), max)`. Height keeps the card viewport-locked; width stops long translated words from adding lines. Never hardcode a padding, font size, gap, or radius inside a story variant — add or adjust a variable so one scale still governs all eight variants.
+
+**The Container-Scale Guard.** The locked stage and the card scale that belongs to it ship behind `@supports (container-type: size)`. A browser that cannot resolve `cqh`/`cqw` would drop every `clamp()` in the card and keep only the lock — the exact clip this design forbids. Without container queries the deck stays released and the static scale governs.
+
+**The Never-Clip Rule.** Card layout is adaptive at every resolution and nothing is clipped, truncated, or scrolled inside a card. Two releases exist, both explicit rather than accidental: below 561px of viewport height the stage stops being fixed and cards take their natural height; and the controller switches the deck from `data-story-layout="stage"` to `flow` whenever any card's content would overflow its box, so the page scrolls instead of the card. Released decks keep the same card design, hide inactive frames, and let the page own the vertical gesture.
 
 ## Elevation & Depth
 
@@ -220,7 +227,7 @@ Cards use translucent ink, a 1px cold border, and an inset top light to read as 
 
 Pills dominate the control language: navigation buttons, language pills, stack chips, progress segments, monogram, and contact icons all use a full `9999px` radius. Cards use generous radii: 32px for the story stage, 28px for the text header, 24px for text sections, and 16px for inner tiles.
 
-Borders are always hairlines, never heavy frames: 1px cold slate at 30–65% opacity, with amber or sky at 15–45% for accented rules. The only decorative geometry is a thin 44px arc in the top-right of the story card and a short horizontal gradient rule near the bottom-right. There are no sharp corners and no clipped edges.
+Borders are always hairlines, never heavy frames: 1px cold slate at 30–65% opacity, with amber or sky at 15–45% for accented rules. The decorative geometry is inherited and stays: a thin arc in the top-right of the story card and a short horizontal gradient rule near the bottom-right. There are no sharp corners and no clipped edges.
 
 ## Components
 
@@ -228,22 +235,34 @@ Borders are always hairlines, never heavy frames: 1px cold slate at 30–65% opa
 - **Shape:** Full pill (`9999px`), 6px by 12px padding, 11px uppercase semibold label with 0.1em tracking.
 - **Secondary:** Ink veil at 25% with a cold 60%-opacity border and secondary text. Used for Previous and Next.
 - **Pause:** Amber tint at 10% with an amber border and soft-amber text. This is the one action-colored control.
-- **Hover / Focus:** Border shifts to sky and text to white. Focus uses a 2px sky outline with a 2px offset.
+- **Hover / Focus:** Border shifts to sky and text to white. Focus uses a 2px sky outline whose offset belongs to each control — 2px on the small chrome, 4px on inline links, 8px on the deck region — so a ring on a pill and a ring on a card are not forced into the same shape. The outline inherits the control's `transition`, so it eases in from the text colour over 240ms and lands on `signal-sky`; any measurement of a focus ring must wait out that transition before reading it.
 - **Contact icons:** 44px amber-tinted circles with 1px amber borders and 20px inline icons.
 
 ### Chips
 - **Stack chips:** Sky tint at 6% with a sky border at 25%, pill shape, 4px by 10px padding, centered 12px medium text.
 - **Systems chips:** Neutral ink veil at 25% with a cold border; the systems diagram uses three accent tiles for API, Queue, and Data.
 - **Highlight chips:** Warm amber tint at 5.5% with a warm left rule and 16px radius; problem cards use neutral tint with an inset top light.
+- **The Full-Shelf Rule:** a chip shelf fills every row it starts. Two columns on narrow cards and three on wide ones, with each chip measured off the same flex basis. When a count would strand one chip alone on the last row, the shelf moves to four or five columns instead (`chipColumns()` in `src/lib/chip-columns.ts`): three columns when the count divides by three, otherwise the exact four- or five-column fit, otherwise whichever of the two leaves a remainder other than one. Only a prime count keeps three columns, and its last row is stretched rather than left dangling. A shelf of one or two chips is not a shelf and keeps the default.
 
 ### Cards / Containers
-- **Story card:** 32px radius, translucent ink gradient per variant, 1px cold border, inset top light, and 16–32px padding. Content is top-aligned with generous empty space below.
+- **Story card:** 32px radius, ink base with a per-variant wash, 1px cold border, inset top light, and 16–32px padding. Content is top-aligned with generous empty space below.
+
+**The Two-Voice Surface Rule.** Every card is ink plus exactly one lean — cold toward the top-left, warm toward the bottom-right — mixed from `--color-line-cold` / `--color-ember` over `--color-ink` with `color-mix()`. No third hue enters a card surface; the old violet and olive corner stops were arbitrary and are gone. Surfaces mix `ember`, not `line-warm`: the line colour is deliberately desaturated for hairlines, and a desaturated warm mixed into cold ink cancels through achromatic grey, so the corner would read as a grey smudge instead of a warm one.
+
+**The Surviving-Chroma Rule.** A warm stop is only warm above roughly 40% share. At 20% the measured result is `rgb(30,34,40)` — hue 258, red-minus-blue −10, i.e. a *cool* grey that reads as an accidental smudge. Every warm corner therefore sits at 40% or more of `ember`, and a corner that should stay subtle gets a later mid stop (a smaller warm area) rather than a weaker stop. Measured after the change: cards 6, 8 and 9 peak at red-minus-blue +18, +29 and +43 with chroma 0.020, 0.031 and 0.043 in the warm hue family (60–78°). Cold corners stay at 250–260°.
+
+Card 5 is the inverse lean — warm at the top-left, cold at the bottom-right — and it is the only card whose warm corner sits behind its own title. At 46% `ember` over a 52% mid stop it measured chroma 0.024 but pulled the deck's worst text contrast (11.86:1 title, 10.25:1 eyebrow). At 36% it went back to near-grey (chroma 0.011). It now sits at **42% `ember` with the ink mid stop at 34%**: chroma 0.018 in the warm family (hue 60°), title 13.41:1 and eyebrow 11.3:1. Warmth concentrated early reads warmer than a weaker stop spread further, and it gives the title back its contrast.
+
+**The Behind-The-Decor Rule.** Decorative geometry is inherited from the incumbent deck, so it stays — but it never paints over content. The decor layer sits at `z-index: 0` and the card body at `z-index: 1`, which is what stops the arc from overprinting a glyph. Size is the only thing that changes: the arc is anchored by its centre (`right`/`top` set to `-0.45 × size`), so one `clamp()` on a `vw` base keeps the centre ~6–10px inside the corner at every width while the intrusion into the card scales with it — 98px of a 448px card on desktop (unchanged from the incumbent 176px ring), 63px of a 358px card on mobile. A fixed 96px arc eats 27% of a narrow card; a fluid one stays a corner flourish. The bottom-right gradient rule is dropped on the terminal card, where it crossed the CTA pill by 90–95px on every viewport and language measured; there is no empty band left to hold it there.
+
+Warm corners stay below the point where they compete with the amber eyebrow and the amber CTA fill; the title still measures loudest on every card.
 - **Text section:** 24px radius, ink veil at 35%, 1px cold border at 30%, 20px padding, centered copy.
 - **Text header:** 28px radius, ink veil at 55%, 24px padding, centered title and intro.
 
 ### Navigation
-- **Header:** 36px circular LX monogram, language pills, and a 36px square icon link to the other mode. The row is compact and sits above the content.
-- **Story controls:** A 12px counter on the left; Previous, Pause, and Next pills on the right. The same pill language carries into the footer contact links.
+- **Header:** 36px circular LX monogram, language pills, and a 36px square icon link to the other mode; both step to a 44px touch target below the 640px breakpoint. The row is compact and sits above the content.
+- **Story controls:** A 12px counter on the left; Previous, Pause, and Next pills on the right, and every control reaches 44px on mobile. The same pill language carries into the footer contact links.
+- **Keyboard:** The deck is one focusable region. Left and Right (and Up and Down) step through screens, Home and End jump to the first and last, and Space pauses or resumes without stealing the key from a focused button. Swipe works the same way wherever the deck is stage-locked, and vertical scrolling stays with the page once the deck releases.
 - **Language:** Current language is a soft amber fill with ink text; the inactive language is an ink veil with a cold border and secondary text.
 
 ### Signature Components

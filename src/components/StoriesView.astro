@@ -13,6 +13,7 @@ interface Props {
 
 const { lang, stories, uiLabels } = Astro.props;
 const textModeHref = getModePath(lang, 'text');
+const flow = { api: uiLabels.flowApi, queue: uiLabels.flowQueue, data: uiLabels.flowData };
 ---
 
 <section
@@ -21,11 +22,13 @@ const textModeHref = getModePath(lang, 'text');
 	data-story-count={stories.length}
 	data-story-lang={lang}
 	data-story-initial-index="0"
+	data-story-layout="stage"
 	data-story-counter-label={uiLabels.storyCounter}
 	tabindex="0"
 	role="region"
 	aria-label={uiLabels.storyExperienceLabel}
-	class="mx-auto flex w-full max-w-md flex-col gap-4 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-sky-200"
+	aria-describedby="story-key-hints"
+	class="mx-auto flex w-full max-w-md flex-col gap-3 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-signal sm:gap-4"
 >
 	<StoryProgressRail count={stories.length} />
 
@@ -39,29 +42,31 @@ const textModeHref = getModePath(lang, 'text');
 				textModeHref={textModeHref}
 				textModeLabel={uiLabels.readTextSummary}
 				emailLabel={uiLabels.emailAlex}
+				flow={flow}
 			/>
 		))}
 
-		<div class="pointer-events-none absolute inset-x-0 top-0 z-10 grid h-2/3 grid-cols-[1fr_1fr_1fr] rounded-3xl" aria-hidden="true">
-			<div class="pointer-events-auto h-full w-full" data-story-hitzone="prev"></div>
-			<div class="pointer-events-auto h-full w-full" data-story-hitzone="pause"></div>
-			<div class="pointer-events-auto h-full w-full" data-story-hitzone="next"></div>
+		<div class="pointer-events-none absolute inset-x-0 top-0 z-10 grid h-3/5 grid-cols-[1fr_1fr_1fr] rounded-t-[2rem]" aria-hidden="true">
+			<div class="pointer-events-auto h-full w-full cursor-pointer" data-story-hitzone="prev"></div>
+			<div class="pointer-events-auto h-full w-full cursor-pointer" data-story-hitzone="pause"></div>
+			<div class="pointer-events-auto h-full w-full cursor-pointer" data-story-hitzone="next"></div>
 		</div>
 	</div>
 
-	<div class="flex items-center justify-between gap-3 text-xs text-slate-400">
-		<p class="font-medium text-slate-300" data-story-counter data-qa="story-counter">{uiLabels.storyCounter} 1 / {stories.length}</p>
+	<div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+		<p class="story-counter text-xs font-medium text-slate-300" data-story-counter data-qa="story-counter">{uiLabels.storyCounter} 1 / {stories.length}</p>
 		<div class="flex gap-2">
-			<button type="button" data-story-nav="prev" data-story-control="button" data-qa="story-prev" class="rounded-full border border-slate-500/60 bg-slate-950/25 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300 transition hover:border-sky-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200">{uiLabels.prev}</button>
-			<button type="button" data-story-nav="pause" data-story-control="button" data-qa="story-pause" class="rounded-full border border-amber-200/45 bg-amber-200/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-100 transition hover:border-amber-100 hover:bg-amber-200/18 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-100" data-story-pause-label={uiLabels.pause} data-story-resume-label={uiLabels.resume} data-story-start-over-label={uiLabels.startOver}>{uiLabels.pause}</button>
-			<button type="button" data-story-nav="next" data-story-control="button" data-qa="story-next" class="rounded-full border border-slate-500/60 bg-slate-950/25 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300 transition hover:border-sky-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-slate-500/60 disabled:hover:text-slate-300">{uiLabels.next}</button>
+			<button type="button" data-story-nav="prev" data-story-control="button" data-qa="story-prev" class="min-h-9 max-sm:min-h-11 rounded-full border border-line-cold bg-ink/25 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300 transition hover:border-signal hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal">{uiLabels.prev}</button>
+			<button type="button" data-story-nav="pause" data-story-control="button" data-qa="story-pause" class="min-h-9 max-sm:min-h-11 rounded-full border border-instrument/45 bg-instrument/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-instrument-soft transition hover:border-instrument hover:bg-instrument/18 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-instrument-soft" data-story-pause-label={uiLabels.pause} data-story-resume-label={uiLabels.resume} data-story-start-over-label={uiLabels.startOver}>{uiLabels.pause}</button>
+			<button type="button" data-story-nav="next" data-story-control="button" data-qa="story-next" class="min-h-9 max-sm:min-h-11 rounded-full border border-line-cold bg-ink/25 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300 transition hover:border-signal hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-line-cold disabled:hover:text-slate-300">{uiLabels.next}</button>
 		</div>
 	</div>
 
+	<p id="story-key-hints" class="sr-only">{uiLabels.keyHints}</p>
 	<p class="sr-only" data-story-live-region aria-live="polite"></p>
 
 	<noscript>
-		<p class="rounded-xl border border-slate-600/70 bg-slate-950/60 px-4 py-3 text-sm text-slate-300">
+		<p class="rounded-xl border border-line-cold bg-ink/60 px-4 py-3 text-sm text-slate-300">
 			{uiLabels.noJsHint}
 		</p>
 	</noscript>

@@ -23,7 +23,7 @@ const { summary } = Astro.props;
 				<p class="mt-2 text-sm leading-relaxed text-slate-300">{section.summary}</p>
 				{section.id === 'contact' && (
 					<div class="mt-4">
-						<ContactLinks variant="inline" qaPrefix="text-contact" />
+						<ContactLinks variant="inline" qaPrefix="text-contact" lang={summary.lang} />
 					</div>
 				)}
 				{section.items && section.items.length > 0 && (

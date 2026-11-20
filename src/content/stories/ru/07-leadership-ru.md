@@ -4,7 +4,7 @@ order: 7
 slug: leadership
 lang: ru
 duration: 7000
-eyebrow: LEADERSHIP
+eyebrow: ЛИДЕРСТВО
 title: "Опыт Tech Lead и Team Lead: от архитектуры до результата"
 lines:
   - Синхронизирую архитектуру, качество кода и договоренности по срокам.
@@ -13,8 +13,8 @@ lines:
 visualVariant: leadership-signals
 analyticsKey: story_leadership
 highlightItems:
-  - Tech Lead ownership
-  - Team Lead coordination
+  - Ответственность Tech Lead
+  - Координация Team Lead
   - Менторство и культура обратной связи
   - Ответственность за качество и поставку
 ---

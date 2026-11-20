@@ -10,9 +10,10 @@ interface Props {
 	textModeHref: string;
 	textModeLabel: string;
 	emailLabel: string;
+	flow: { api: string; queue: string; data: string };
 }
 
-const { story, total, labelCounter, isActive, textModeHref, textModeLabel, emailLabel } = Astro.props;
+const { story, total, labelCounter, isActive, textModeHref, textModeLabel, emailLabel, flow } = Astro.props;
 ---
 
 <section
@@ -25,7 +26,13 @@ const { story, total, labelCounter, isActive, textModeHref, textModeLabel, email
 	aria-hidden={isActive ? 'false' : 'true'}
 	inert={!isActive}
 	aria-label={`${labelCounter} ${story.index + 1} / ${total}: ${story.title}`}
-	class="story-frame relative mb-4 transition-opacity duration-300 last:mb-0"
+	class="story-frame"
 >
-	<StoryContent story={story} textModeHref={textModeHref} textModeLabel={textModeLabel} emailLabel={emailLabel} />
+	<StoryContent
+		story={story}
+		textModeHref={textModeHref}
+		textModeLabel={textModeLabel}
+		emailLabel={emailLabel}
+		flow={flow}
+	/>
 </section>
