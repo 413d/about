@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import BrandMark from '@/components/BrandMark.astro';
 import StoriesView from '@/components/StoriesView.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import TextModeLink from '@/components/TextModeLink.astro';
@@ -25,7 +26,7 @@ const homeLabel = labels.goHome;
 		<h1 class="sr-only">{meta.title}</h1>
 		<header class="mb-5 flex items-center justify-between gap-4">
 			<div class="flex items-center gap-3">
-				<a href={homeHref} aria-label={homeLabel} class="grid h-9 w-9 max-sm:h-11 max-sm:w-11 place-items-center rounded-full border border-instrument-soft/40 bg-instrument/10 text-[11px] font-bold leading-none tracking-[0.08em] text-instrument-soft transition hover:border-instrument-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-instrument-soft">LX</a>
+				<BrandMark homeHref={homeHref} homeLabel={homeLabel} />
 				<LanguageSwitcher lang={lang} currentPathEn={alternates.en} currentPathRu={alternates.ru} label={labels.jumpToLanguage} />
 			</div>
 			<TextModeLink href={getModePath(lang, 'text')} label={labels.viewTextVersion} qa="open-text-mode" targetMode="text" />

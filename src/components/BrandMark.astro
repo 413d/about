@@ -1,0 +1,30 @@
+---
+import { BRAND_AVATAR_URL, BRAND_NAME } from '@/lib/brand';
+
+interface Props {
+	homeHref: string;
+	homeLabel: string;
+}
+
+const { homeHref, homeLabel } = Astro.props;
+---
+
+<a
+	href={homeHref}
+	aria-label={`${BRAND_NAME} — ${homeLabel}`}
+	data-qa="brand-home"
+	class="group inline-flex min-h-11 items-center gap-2.5 rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal sm:min-h-0"
+>
+	<img
+		src={BRAND_AVATAR_URL}
+		alt=""
+		width="32"
+		height="32"
+		loading="eager"
+		decoding="async"
+		class="h-8 w-8 rounded-full border border-instrument-soft/40 object-cover transition group-hover:border-instrument-soft"
+	/>
+	<span class="text-[13px] font-semibold leading-none tracking-[0.02em] text-slate-50 transition group-hover:text-white">
+		{BRAND_NAME}
+	</span>
+</a>
