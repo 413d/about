@@ -115,11 +115,12 @@ components:
     backgroundColor: "rgba(231, 184, 103, 0.10)"
     size: "44px"
     rounded: "{rounded.pill}"
-  monogram:
-    backgroundColor: "rgba(231, 184, 103, 0.10)"
-    textColor: "{colors.instrument-amber}"
-    typography: "{typography.control}"
-    size: "36px"
+  brand-lockup:
+    backgroundColor: "transparent"
+    textColor: "{colors.text-primary}"
+    avatarSize: "32px"
+    wordmarkSize: "13px"
+    gap: "10px"
     rounded: "{rounded.pill}"
 ---
 
@@ -148,7 +149,7 @@ Density is low by design. One idea occupies each story frame; one section occupi
 The palette is a dark navy instrument panel with one warm readout and one cool signal, never a colorful interface.
 
 ### Primary
-- **Instrument Amber** (#e7b867): The warm signal. Used for eyebrows, the pause control, monogram ring, hairline rules, the warm end of the progress gradient, and warm-accented highlight items. It carries attention without becoming a fill.
+- **Instrument Amber** (#e7b867): The warm signal. Used for eyebrows, the pause control, brand-lockup ring, hairline rules, the warm end of the progress gradient, and warm-accented highlight items. It carries attention without becoming a fill.
 - **Soft Amber** (#fef3c7): The active-state fill. Used for the selected language pill and as pause-control text. This is the only large amber fill in the system.
 
 ### Secondary
@@ -225,7 +226,7 @@ Cards use translucent ink, a 1px cold border, and an inset top light to read as 
 
 ## Shapes
 
-Pills dominate the control language: navigation buttons, language pills, stack chips, progress segments, monogram, and contact icons all use a full `9999px` radius. Cards use generous radii: 32px for the story stage, 28px for the text header, 24px for text sections, and 16px for inner tiles.
+Pills dominate the control language: navigation buttons, language pills, stack chips, progress segments, brand lockup, and contact icons all use a full `9999px` radius. Cards use generous radii: 32px for the story stage, 28px for the text header, 24px for text sections, and 16px for inner tiles.
 
 Borders are always hairlines, never heavy frames: 1px cold slate at 30–65% opacity, with amber or sky at 15–45% for accented rules. The decorative geometry is inherited and stays: a thin arc in the top-right of the story card and a short horizontal gradient rule near the bottom-right. There are no sharp corners and no clipped edges.
 
@@ -260,7 +261,7 @@ Warm corners stay below the point where they compete with the amber eyebrow and 
 - **Text header:** 28px radius, ink veil at 55%, 24px padding, centered title and intro.
 
 ### Navigation
-- **Header:** 36px circular LX monogram, language pills, and a 36px square icon link to the other mode; both step to a 44px touch target below the 640px breakpoint. The row is compact and sits above the content.
+- **Header:** a 32px circular GitHub avatar with a 1px Instrument Amber ring, the lowercase `413d` wordmark at 13px semibold, language pills, and a 36px square icon link to the other mode; the brand link and mode link step to a 44px touch target below the 640px breakpoint. The row is compact and sits above the content. The avatar is a signature, not a portrait; if the photograph cannot carry the mark at 32px, the `👽` signature emoji takes its place in the same badge.
 - **Story controls:** A 12px counter on the left; Previous, Pause, and Next pills on the right, and every control reaches 44px on mobile. The same pill language carries into the footer contact links.
 - **Keyboard:** The deck is one focusable region. Left and Right (and Up and Down) step through screens, Home and End jump to the first and last, and Space pauses or resumes without stealing the key from a focused button. Swipe works the same way wherever the deck is stage-locked, and vertical scrolling stays with the page once the deck releases.
 - **Language:** Current language is a soft amber fill with ink text; the inactive language is an ink veil with a cold border and secondary text.

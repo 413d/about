@@ -34,11 +34,14 @@ A narrative portfolio that delivers the same career story twice: as an auto-adva
 - Story content supports eight visual variants: hero, text emphasis, stack grid, systems diagram, problem cards, leadership signals, growth path, and CTA.
 - SEO baseline: canonical URLs, hreflang alternates, sitemap, robots, and Person structured data.
 - Contact email, X and GitHub URLs, Cloudflare analytics token, site name, and profile URLs are deployment configuration, not hard-coded truth.
-- The name "Alex" and the "LX" monogram are intentional and stay. Placeholder values such as `hello@example.com` must be replaced at deployment.
+- The brand "413d" names the site and its chrome; the person "Alex" remains the named engineer in the story and summary. Placeholder values such as `hello@example.com` must be replaced at deployment.
 
 ## Brand Commitments
 
-- Name: Alex. Monogram: LX.
+- Brand: 413d, the site and its chrome.
+- Person: Alex, the named engineer in story and summary copy.
+- Signature emoji: 👽, also the favicon.
+- The `LX` monogram is retired.
 - Voice: concrete, confident, engineering-focused. Claims are specific about systems, trade-offs, and delivery rather than promotional.
 - Bilingual parity: English and Russian receive equal content quality and completeness.
 - The dual-mode presentation, story experience plus text summary, is the signature interaction and should be preserved.
