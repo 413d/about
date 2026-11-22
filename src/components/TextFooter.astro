@@ -1,5 +1,6 @@
 ---
 import ContactLinks from '@/components/ContactLinks.astro';
+import { BRAND_NAME } from '@/lib/brand';
 
 interface Props {
 	lang: 'en' | 'ru';
@@ -7,7 +8,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const year = new Date().getFullYear();
-const owner = import.meta.env.PUBLIC_PERSON_NAME ?? 'Alex';
+const owner = BRAND_NAME;
 const copyright = lang === 'ru'
 	? `© ${year} ${owner}. Все права защищены.`
 	: `© ${year} ${owner}. All rights reserved.`;

@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import { BRAND_NAME } from '@/lib/brand';
 import { withBasePath } from '@/lib/i18n';
 import { ClientRouter } from 'astro:transitions';
 
@@ -36,7 +37,8 @@ const profileUrls = profileUrlsRaw
 		.map((value: string) => value.trim())
 		.filter((value: string) => value.length > 0)
 	: [];
-const siteName = import.meta.env.PUBLIC_SITE_NAME ?? (lang === 'ru' ? 'Портфолио Senior Fullstack разработчика' : 'Senior Fullstack Developer Portfolio');
+const siteName = import.meta.env.PUBLIC_SITE_NAME ?? BRAND_NAME;
+const documentTitle = title.includes(BRAND_NAME) ? title : `${title} — ${BRAND_NAME}`;
 
 let analyticsScriptSrc: string | null = null;
 
@@ -56,6 +58,7 @@ const structuredData = personName
 		'@context': 'https://schema.org',
 		'@type': 'Person',
 		name: personName,
+		alternateName: BRAND_NAME,
 		jobTitle: lang === 'ru' ? 'Senior Fullstack разработчик' : 'Senior Fullstack Developer',
 		description,
 		url: canonicalUrl,
@@ -103,7 +106,7 @@ const structuredData = personName
 		<link rel="icon" type="image/svg+xml" href={faviconSvgUrl} />
 		<link rel="icon" href={faviconIcoUrl} />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{documentTitle}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
 		<link rel="alternate" hreflang="en" href={alternateEn} />
@@ -112,7 +115,7 @@ const structuredData = personName
 		<meta name="robots" content="index,follow,max-image-preview:large" />
 
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content={title} />
+		<meta property="og:title" content={documentTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:site_name" content={siteName} />
@@ -121,7 +124,7 @@ const structuredData = personName
 		<meta property="og:image" content={socialImageUrl} />
 
 		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content={title} />
+		<meta name="twitter:title" content={documentTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={socialImageUrl} />
 
