@@ -5,21 +5,21 @@ slug: backend
 lang: en
 duration: 7000
 eyebrow: BACKEND
-title: Node.js and NestJS backend systems built for reliability and observability
+title: Node.js, NestJS, and Hono backends built for speed and reliability
 lines:
-  - Node.js, NestJS, and Hono with Serverless-first architecture for robust APIs and service boundaries.
-  - SQL, caching, queues, and observability for stable production behavior.
-  - I optimize backend architecture for uptime, diagnostics, and controlled scaling.
+  - Node.js, NestJS, Hono, and tRPC / OpenAPI (including Edge & Serverless on Cloudflare / AWS).
+  - PostgreSQL, Drizzle ORM, Prisma, Redis, and queues (RabbitMQ / BullMQ) for scale.
+  - Docker, GitHub Actions, and observability (OpenTelemetry, Sentry) in production.
 visualVariant: systems-diagram
 analyticsKey: story_backend
 stackItems:
   - Node.js
   - NestJS
   - Hono
-  - Serverless
+  - PostgreSQL
+  - Drizzle ORM
   - Prisma
-  - TypeORM
-  - MySQL
+  - tRPC
   - Redis
   - RabbitMQ
   - Docker

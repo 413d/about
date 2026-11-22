@@ -5,10 +5,10 @@ slug: cta
 lang: ru
 duration: 0
 eyebrow: КОНТАКТ
-title: Ищете senior-разработчика — или обсуждаете проект?
+title: Запускаете SaaS, AI-продукт или ищете Senior Fullstack / Tech Lead?
 lines:
-  - Открыт к senior fullstack ролям, техлид-позициям и клиентским проектам с результатом.
-  - "Расскажите о цели, ограничениях, сроках и ожидаемой зоне ответственности."
+  - Открыт к senior fullstack и техлид-ролям, а также к проектам под ключ (SaaS, AI, Web3).
+  - Напишите пару строк о задаче и сроках — отвечу с техническим подходом и планом старта.
 visualVariant: cta-block
 analyticsKey: story_cta
 ---

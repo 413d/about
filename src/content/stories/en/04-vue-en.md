@@ -5,11 +5,11 @@ slug: vue
 lang: en
 duration: 7000
 eyebrow: VUE
-title: Vue Developer for maintainable reactive applications and UI architecture
+title: Vue 3 and Nuxt for maintainable reactive apps and UI architecture
 lines:
-  - Vue 3 and Nuxt with Composition API for structured reactive products.
-  - Pinia, Vue Query, and VueUse for predictable state and reusable patterns.
-  - I keep explicit component boundaries to control complexity as products scale.
+  - Vue 3, Nuxt (Nitro), Pinia, and VueUse for structured, high-performance web apps.
+  - Vue Query (TanStack) and Tailwind CSS for reliable server state and consistent UI.
+  - Explicit component boundaries and Vitest coverage keep complexity under control.
 visualVariant: stack-grid
 analyticsKey: story_vue
 stackItems:
@@ -18,5 +18,5 @@ stackItems:
   - Pinia
   - Vue Query
   - VueUse
-  - Composition API
+  - Tailwind CSS
 ---

@@ -5,21 +5,21 @@ slug: backend
 lang: ru
 duration: 7000
 eyebrow: BACKEND
-title: "Backend на Node.js и NestJS: надежность, наблюдаемость и масштабирование"
+title: "Backend на Node.js, NestJS и Hono: скорость, надежность и масштаб"
 lines:
-  - Node.js, NestJS и Hono c Serverless-first подходом для надежных API и четких сервисных границ.
-  - SQL, кеширование, очереди и наблюдаемость для стабильной работы в продакшене.
-  - Оптимизирую backend-архитектуру под доступность, диагностику и управляемый рост.
+  - Node.js, NestJS, Hono и tRPC / OpenAPI (включая Edge/Serverless на Cloudflare и AWS).
+  - PostgreSQL, Drizzle ORM, Prisma, Redis и очереди (RabbitMQ / BullMQ) под нагрузку.
+  - Docker, GitHub Actions и наблюдаемость (OpenTelemetry, Sentry) для стабильного продакшена.
 visualVariant: systems-diagram
 analyticsKey: story_backend
 stackItems:
   - Node.js
   - NestJS
   - Hono
-  - Serverless
+  - PostgreSQL
+  - Drizzle ORM
   - Prisma
-  - TypeORM
-  - MySQL
+  - tRPC
   - Redis
   - RabbitMQ
   - Docker

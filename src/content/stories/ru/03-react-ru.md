@@ -5,18 +5,21 @@ slug: react
 lang: ru
 duration: 7000
 eyebrow: REACT
-title: React-разработчик для сложных интерфейсов и масштабируемой UI-архитектуры
+title: React и Next.js для сложных интерфейсов и масштабируемых UI-систем
 lines:
-  - React, Next.js, Redux, RxJS и SWR для сложных интерактивных сценариев.
-  - Создаю компонентные системы с четкими контрактами и тестовым покрытием.
-  - Производительность, доступность и удобство разработки считаю частью качества поставки.
+  - React, Next.js (App Router), TanStack Query, Zustand и Tailwind CSS для быстрых интерфейсов.
+  - Строгие контракты (Zod), доступные дизайн-системы (shadcn/ui) и надежный стейт.
+  - Производительность, доступность и тесты (Vitest, Playwright) как часть поставки.
 visualVariant: stack-grid
 analyticsKey: story_react
 stackItems:
   - React
   - Next.js
-  - Redux
-  - RxJS
-  - SWR
-  - React Testing Library
+  - TanStack Query
+  - Zustand
+  - Tailwind CSS
+  - shadcn/ui
+  - Zod
+  - Vitest
+  - Playwright
 ---

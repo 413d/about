@@ -106,22 +106,22 @@ export function getPageMeta(lang: AppLang, mode: AppMode): { title: string; desc
 	if (mode === 'stories') {
 		return lang === 'en'
 			? {
-				title: 'Senior Fullstack Developer Portfolio | TypeScript, React, Node.js',
-				description: 'Senior Fullstack Developer portfolio with TypeScript, React, Node.js, and NestJS expertise focused on architecture ownership and delivery leadership.'
+				title: 'Senior Fullstack Engineer | SaaS, AI, Web3 & System Architecture',
+				description: 'Senior Fullstack Engineer building SaaS platforms, AI integrations, and Web3 products with TypeScript, React, Next.js, Vue, Node.js, NestJS, Hono, and PostgreSQL.'
 			}
 			: {
-				title: 'Senior Fullstack разработчик | TypeScript, React, Node.js, NestJS',
-				description: 'Портфолио Senior Fullstack разработчика с экспертизой в TypeScript, React, Node.js и NestJS, фокусом на архитектурной ответственности и управляемой поставке.'
+				title: 'Senior Fullstack инженер | SaaS, AI, Web3 и архитектура систем',
+				description: 'Портфолио Senior Fullstack инженера: SaaS-платформы, AI-интеграции и Web3-продукты на TypeScript, React, Next.js, Vue, Node.js, NestJS, Hono и PostgreSQL.'
 			};
 	}
 
 	return lang === 'en'
 		? {
-			title: 'Senior Full Stack Engineer Resume Summary | React, Node.js, TypeScript',
-			description: 'Resume summary for recruiters and hiring managers: Senior Full Stack Engineer with React, Node.js, NestJS, architecture ownership, and delivery leadership.'
+			title: 'Senior Fullstack Engineer Resume | SaaS, AI, Web3, React, Node.js',
+			description: 'Resume summary for hiring managers and clients: Senior Fullstack Engineer with TypeScript, React, Next.js, Vue, Node.js, NestJS, Hono, PostgreSQL, Drizzle, AI, and Web3.'
 		}
 		: {
-			title: 'Резюме Senior Fullstack разработчика | React, Node.js, TypeScript',
-			description: 'Краткое резюме для рекрутеров и нанимающих менеджеров: Senior Fullstack разработчик с опытом React, Node.js, NestJS и техлид-ответственности.'
+			title: 'Резюме Senior Fullstack инженера | SaaS, AI, Web3, React, Node.js',
+			description: 'Краткое резюме для найма и проектов: Senior Fullstack инженер (TypeScript, React, Next.js, Vue, Node.js, NestJS, Hono, PostgreSQL, Drizzle, AI и Web3).'
 		};
 }

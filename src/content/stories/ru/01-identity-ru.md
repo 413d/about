@@ -5,10 +5,10 @@ slug: identity
 lang: ru
 duration: 6000
 eyebrow: I'm Alex
-title: "Senior Fullstack разработчик: надежные TypeScript-продукты под ключ"
+title: "Senior Fullstack инженер: SaaS, AI и Web3 продукты под ключ"
 lines:
-  - Беру техническую ответственность за frontend и backend на всем цикле разработки.
-  - Проектирую TypeScript-системы, которые остаются понятными, тестируемыми и стабильными в продакшене.
+  - Проектирую и запускаю B2B-платформы, SaaS-сервисы и AI-интеграции от архитектуры до продакшена.
+  - Беру техническую ответственность за систему целиком — от архитектуры и API до интерфейса и инфраструктуры.
 visualVariant: hero
 analyticsKey: story_identity
 ---

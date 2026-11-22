@@ -5,10 +5,10 @@ slug: cta
 lang: en
 duration: 0
 eyebrow: CONTACT
-title: Hiring for a senior role — or scoping a project?
+title: Launching a SaaS, AI feature, or hiring a Senior Fullstack / Tech Lead?
 lines:
-  - Open to senior fullstack and technical leadership roles where architecture decisions and delivery reliability are critical.
-  - Share your goals, constraints, timeline, and expected ownership.
+  - Open to senior fullstack and technical leadership roles, as well as end-to-end client builds (SaaS, AI, Web3).
+  - Send a few lines about your goals and timeline — I'll reply with a technical approach and next steps.
 visualVariant: cta-block
 analyticsKey: story_cta
 ---

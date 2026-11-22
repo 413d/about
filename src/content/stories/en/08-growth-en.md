@@ -4,12 +4,12 @@ order: 8
 slug: growth
 lang: en
 duration: 6000
-eyebrow: GROWTH
-title: Continuous growth through practical AI adoption and engineering discipline
+eyebrow: AI & GROWTH
+title: Production AI integrations and AI-accelerated delivery with engineering rigor
 lines:
-  - I adopt new tools quickly when they improve team throughput or quality.
-  - AI-assisted workflows are used pragmatically in analysis, coding, and review.
-  - This keeps technical decisions current and reduces delivery risk.
+  - "I ship LLM features in production: OpenAI/Anthropic APIs, Vercel AI SDK, RAG (pgvector), and MCP."
+  - AI-assisted workflows accelerate prototyping, refactoring, and code analysis.
+  - Speed is always backed by strict contracts, automated testing, and architecture review.
 visualVariant: growth-path
 analyticsKey: story_growth
 ---

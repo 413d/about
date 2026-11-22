@@ -5,10 +5,10 @@ slug: identity
 lang: en
 duration: 6000
 eyebrow: I'm Alex
-title: Senior Fullstack Developer building reliable TypeScript products end to end
+title: Senior Fullstack Engineer building modern SaaS, AI, and Web3 products
 lines:
-  - Senior Fullstack Developer owning architecture and delivery across frontend and backend.
-  - I design TypeScript systems that stay readable, testable, and reliable in production.
+  - End-to-end technical ownership across system architecture, backend, frontend, and infrastructure.
+  - I design and ship B2B platforms, SaaS products, and AI workflows that stay reliable in production.
 visualVariant: hero
 analyticsKey: story_identity
 ---
